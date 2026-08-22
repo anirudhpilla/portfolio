@@ -1,6 +1,5 @@
 import { useState, FormEvent } from 'react';
 import { personalInfo } from '../data/portfolioData';
-import { downloadResumePdf } from '../utils/resumeDownload';
 import { 
   Mail, 
   Copy, 
@@ -16,24 +15,13 @@ import {
   Phone,
   Award,
   Download,
-  FileText,
-  Loader2
+  FileText
 } from 'lucide-react';
 
 export default function ContactSection() {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
   const [senderName, setSenderName] = useState('');
-
-  const handleDownloadResume = async () => {
-    try {
-      setIsDownloading(true);
-      await downloadResumePdf('resume.pdf');
-    } finally {
-      setIsDownloading(false);
-    }
-  };
   const [senderEmail, setSenderEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
@@ -229,30 +217,24 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* Direct Resume Download Button */}
-            <button
-              onClick={handleDownloadResume}
-              disabled={isDownloading}
+            {/* Direct Resume Download Link */}
+            <a
+              href="/resume.pdf"
+              download="resume.pdf"
               id="contact-download-resume-btn"
-              className="w-full flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 hover:border-cyan-400 disabled:opacity-75 text-xs text-neutral-200 transition-all hover:bg-neutral-900 group cursor-pointer text-left"
+              className="w-full flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 hover:border-cyan-400 text-xs text-neutral-200 transition-all hover:bg-neutral-900 group cursor-pointer text-left"
             >
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-cyan-500/20 text-cyan-400">
-                  {isDownloading ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <FileText className="w-4 h-4" />
-                  )}
+                  <FileText className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="font-bold text-white group-hover:text-cyan-300">
-                    {isDownloading ? 'Generating PDF Resume...' : 'Download Official Resume'}
-                  </div>
+                  <div className="font-bold text-white group-hover:text-cyan-300">Download Official Resume</div>
                   <div className="text-[10px] text-neutral-400">PDF • Microservices & Distributed Systems</div>
                 </div>
               </div>
               <Download className="w-4 h-4 text-cyan-400 group-hover:translate-y-0.5 transition-transform" />
-            </button>
+            </a>
 
           </div>
 

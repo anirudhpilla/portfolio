@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { personalInfo, experienceData, skillCategories, projectsData } from '../data/portfolioData';
-import { downloadResumePdf } from '../utils/resumeDownload';
 import { 
   X, 
   Copy, 
   Check, 
   Download, 
-  Loader2,
   Mail, 
   Phone,
   Github, 
@@ -28,18 +26,8 @@ interface ResumeModalProps {
 
 export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
   const [copiedText, setCopiedText] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
 
   if (!isOpen) return null;
-
-  const handleDownloadPdf = async () => {
-    try {
-      setIsDownloading(true);
-      await downloadResumePdf('resume.pdf');
-    } finally {
-      setIsDownloading(false);
-    }
-  };
 
   const handleCopyPlainText = () => {
     const text = `
@@ -110,25 +98,16 @@ B.Tech, Computer Science and Engineering (CGPA: 9.16/10) | Apr 2023
           </div>
 
           <div className="flex items-center gap-2">
-            <button
-              onClick={handleDownloadPdf}
-              disabled={isDownloading}
+            <a
+              href="/resume.pdf"
+              download="resume.pdf"
               id="resume-download-pdf-btn"
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 disabled:opacity-75 text-xs font-bold text-neutral-950 transition-colors shadow-sm cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-xs font-bold text-neutral-950 transition-colors shadow-sm cursor-pointer"
               title="Download Resume PDF"
             >
-              {isDownloading ? (
-                <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                  <span>Generating PDF...</span>
-                </>
-              ) : (
-                <>
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Download PDF</span>
-                </>
-              )}
-            </button>
+              <Download className="w-3.5 h-3.5" />
+              <span>Download PDF</span>
+            </a>
 
             <button
               onClick={handleCopyPlainText}

@@ -1,22 +1,9 @@
-import { useState } from 'react';
 import { personalInfo } from '../data/portfolioData';
-import { downloadResumePdf } from '../utils/resumeDownload';
-import { Terminal, Github, Linkedin, Mail, ArrowUp, Phone, Award, MapPin, Download, Loader2 } from 'lucide-react';
+import { Terminal, Github, Linkedin, Mail, ArrowUp, Phone, Award, MapPin, Download } from 'lucide-react';
 
 export default function Footer() {
-  const [isDownloading, setIsDownloading] = useState(false);
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleDownloadResume = async () => {
-    try {
-      setIsDownloading(true);
-      await downloadResumePdf('resume.pdf');
-    } finally {
-      setIsDownloading(false);
-    }
   };
 
   return (
@@ -42,20 +29,16 @@ export default function Footer() {
 
           {/* Social Links & Resume Download */}
           <div className="flex items-center flex-wrap gap-2.5">
-            <button
-              onClick={handleDownloadResume}
-              disabled={isDownloading}
+            <a
+              href="/resume.pdf"
+              download="resume.pdf"
               id="footer-resume-download-btn"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-cyan-400 disabled:opacity-75 border border-neutral-800 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-cyan-400 border border-neutral-800 transition-colors cursor-pointer"
               title="Download Resume (PDF)"
             >
-              {isDownloading ? (
-                <Loader2 className="w-3.5 h-3.5 text-cyan-400 animate-spin" />
-              ) : (
-                <Download className="w-3.5 h-3.5 text-cyan-400" />
-              )}
+              <Download className="w-3.5 h-3.5 text-cyan-400" />
               <span>Resume PDF</span>
-            </button>
+            </a>
 
             <a
               href={personalInfo.githubUrl}

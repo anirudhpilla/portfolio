@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { personalInfo } from '../data/portfolioData';
-import { downloadResumePdf } from '../utils/resumeDownload';
 import { 
   Copy, 
   Check, 
@@ -19,8 +18,7 @@ import {
   MapPin,
   Award,
   Download,
-  FileText,
-  Loader2
+  FileText
 } from 'lucide-react';
 
 interface HeroProps {
@@ -31,16 +29,6 @@ interface HeroProps {
 export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
-
-  const handleDownloadResume = async () => {
-    try {
-      setIsDownloading(true);
-      await downloadResumePdf('resume.pdf');
-    } finally {
-      setIsDownloading(false);
-    }
-  };
   const [activeTab, setActiveTab] = useState<'stack' | 'overview' | 'redis_sql'>('stack');
 
   const handleCopyEmail = () => {
@@ -151,24 +139,15 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <button
-                onClick={handleDownloadResume}
-                disabled={isDownloading}
+              <a
+                href="/resume.pdf"
+                download="resume.pdf"
                 id="hero-download-resume-pdf-btn"
-                className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-neutral-100 bg-neutral-900 hover:bg-neutral-800 disabled:opacity-75 border border-cyan-500/30 hover:border-cyan-400/60 shadow-lg shadow-cyan-500/10 transition-all cursor-pointer"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-neutral-100 bg-neutral-900 hover:bg-neutral-800 border border-cyan-500/30 hover:border-cyan-400/60 shadow-lg shadow-cyan-500/10 transition-all cursor-pointer"
               >
-                {isDownloading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 text-cyan-400 animate-spin" />
-                    <span>Generating PDF...</span>
-                  </>
-                ) : (
-                  <>
-                    <Download className="w-4 h-4 text-cyan-400" />
-                    <span>Download Resume (PDF)</span>
-                  </>
-                )}
-              </button>
+                <Download className="w-4 h-4 text-cyan-400" />
+                <span>Download Resume (PDF)</span>
+              </a>
 
               <button
                 onClick={onOpenResume}
