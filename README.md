@@ -21,7 +21,7 @@ A modern, high-performance portfolio website built with React, TypeScript, Vite,
 
 2. **Deploy on Vercel**:
    - Navigate to [vercel.com/new](https://vercel.com/new) and log in with your GitHub account.
-   - Click **Import** next to your `portfolio` repository.
+   - Click **Import** next to your `my-portfolio` repository.
    - Vercel automatically detects the Vite framework settings:
      - **Framework Preset**: Vite
      - **Build Command**: `npm run build`
