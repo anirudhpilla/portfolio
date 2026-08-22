@@ -13,7 +13,7 @@ export default function Footer() {
   const handleDownloadResume = async () => {
     try {
       setIsDownloading(true);
-      await downloadResumePdf('Anirudh_Pilla_Resume.pdf');
+      await downloadResumePdf('resume.pdf');
     } finally {
       setIsDownloading(false);
     }
