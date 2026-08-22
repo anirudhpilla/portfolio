@@ -1,5 +1,6 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, MouseEvent } from 'react';
 import { personalInfo } from '../data/portfolioData';
+import { downloadResumeFile } from '../utils/downloadResume';
 import { 
   Mail, 
   Copy, 
@@ -26,6 +27,11 @@ export default function ContactSection() {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [sentSuccess, setSentSuccess] = useState(false);
+
+  const handleDownloadResume = (e: MouseEvent) => {
+    e.preventDefault();
+    downloadResumeFile('Anirudh_Pilla_Resume.pdf');
+  };
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(personalInfo.email);
@@ -220,7 +226,8 @@ export default function ContactSection() {
             {/* Direct Resume Download Link */}
             <a
               href="/resume.pdf"
-              download="resume.pdf"
+              download="Anirudh_Pilla_Resume.pdf"
+              onClick={handleDownloadResume}
               id="contact-download-resume-btn"
               className="w-full flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 hover:border-cyan-400 text-xs text-neutral-200 transition-all hover:bg-neutral-900 group cursor-pointer text-left"
             >

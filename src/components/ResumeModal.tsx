@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { personalInfo, experienceData, skillCategories, projectsData } from '../data/portfolioData';
+import { downloadResumeFile } from '../utils/downloadResume';
 import { 
   X, 
   Copy, 
@@ -28,6 +29,11 @@ export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
   const [copiedText, setCopiedText] = useState(false);
 
   if (!isOpen) return null;
+
+  const handleDownload = (e: MouseEvent) => {
+    e.preventDefault();
+    downloadResumeFile('Anirudh_Pilla_Resume.pdf');
+  };
 
   const handleCopyPlainText = () => {
     const text = `
@@ -100,7 +106,8 @@ B.Tech, Computer Science and Engineering (CGPA: 9.16/10) | Apr 2023
           <div className="flex items-center gap-2">
             <a
               href="/resume.pdf"
-              download="resume.pdf"
+              download="Anirudh_Pilla_Resume.pdf"
+              onClick={handleDownload}
               id="resume-download-pdf-btn"
               className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-xs font-bold text-neutral-950 transition-colors shadow-sm cursor-pointer"
               title="Download Resume PDF"

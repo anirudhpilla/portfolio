@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { personalInfo } from '../data/portfolioData';
+import { downloadResumeFile } from '../utils/downloadResume';
 import { 
   Copy, 
   Check, 
@@ -30,6 +31,11 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [activeTab, setActiveTab] = useState<'stack' | 'overview' | 'redis_sql'>('stack');
+
+  const handleDownloadResume = (e: MouseEvent) => {
+    e.preventDefault();
+    downloadResumeFile('Anirudh_Pilla_Resume.pdf');
+  };
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(personalInfo.email);
@@ -141,7 +147,8 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
 
               <a
                 href="/resume.pdf"
-                download="resume.pdf"
+                download="Anirudh_Pilla_Resume.pdf"
+                onClick={handleDownloadResume}
                 id="hero-download-resume-pdf-btn"
                 className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-neutral-100 bg-neutral-900 hover:bg-neutral-800 border border-cyan-500/30 hover:border-cyan-400/60 shadow-lg shadow-cyan-500/10 transition-all cursor-pointer"
               >

@@ -1,9 +1,16 @@
+import { MouseEvent } from 'react';
 import { personalInfo } from '../data/portfolioData';
+import { downloadResumeFile } from '../utils/downloadResume';
 import { Terminal, Github, Linkedin, Mail, ArrowUp, Phone, Award, MapPin, Download } from 'lucide-react';
 
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleDownloadResume = (e: MouseEvent) => {
+    e.preventDefault();
+    downloadResumeFile('Anirudh_Pilla_Resume.pdf');
   };
 
   return (
@@ -31,7 +38,8 @@ export default function Footer() {
           <div className="flex items-center flex-wrap gap-2.5">
             <a
               href="/resume.pdf"
-              download="resume.pdf"
+              download="Anirudh_Pilla_Resume.pdf"
+              onClick={handleDownloadResume}
               id="footer-resume-download-btn"
               className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-cyan-400 border border-neutral-800 transition-colors cursor-pointer"
               title="Download Resume (PDF)"
