@@ -1,5 +1,5 @@
 import { personalInfo } from '../data/portfolioData';
-import { Terminal, Github, Linkedin, Mail, ArrowUp, Phone, Award, MapPin } from 'lucide-react';
+import { Terminal, Github, Linkedin, Mail, ArrowUp, Phone, Award, MapPin, Download, FileText } from 'lucide-react';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -27,8 +27,19 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-3">
+          {/* Social Links & Resume Download */}
+          <div className="flex items-center flex-wrap gap-2.5">
+            <a
+              href="/Anirudh_Pilla_Resume.pdf"
+              download="Anirudh_Pilla_Resume.pdf"
+              id="footer-resume-download-link"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-cyan-400 border border-neutral-800 transition-colors"
+              title="Download Resume (PDF)"
+            >
+              <Download className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Resume PDF</span>
+            </a>
+
             <a
               href={personalInfo.githubUrl}
               target="_blank"
@@ -78,7 +89,7 @@ export default function Footer() {
             <button
               onClick={scrollToTop}
               id="footer-back-to-top"
-              className="flex items-center gap-1 px-3 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-800 transition-colors ml-2 cursor-pointer"
+              className="flex items-center gap-1 px-3 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-800 transition-colors ml-1 cursor-pointer"
             >
               <ArrowUp className="w-3.5 h-3.5" />
               <span>Top</span>

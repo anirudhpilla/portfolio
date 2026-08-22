@@ -13,7 +13,9 @@ import {
   CheckCircle2,
   ExternalLink,
   Phone,
-  Award
+  Award,
+  Download,
+  FileText
 } from 'lucide-react';
 
 export default function ContactSection() {
@@ -214,6 +216,25 @@ export default function ContactSection() {
                 <span>{personalInfo.location}</span>
               </div>
             </div>
+
+            {/* Direct Resume Download Link */}
+            <a
+              href="/Anirudh_Pilla_Resume.pdf"
+              download="Anirudh_Pilla_Resume.pdf"
+              id="contact-download-resume-btn"
+              className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 hover:border-cyan-400 text-xs text-neutral-200 transition-all hover:bg-neutral-900 group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-cyan-500/20 text-cyan-400">
+                  <FileText className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="font-bold text-white group-hover:text-cyan-300">Download Official Resume</div>
+                  <div className="text-[10px] text-neutral-400">PDF • Microservices & Distributed Systems</div>
+                </div>
+              </div>
+              <Download className="w-4 h-4 text-cyan-400 group-hover:translate-y-0.5 transition-transform" />
+            </a>
 
           </div>
 

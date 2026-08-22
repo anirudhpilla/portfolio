@@ -21,13 +21,22 @@ A modern, high-performance portfolio website built with React, TypeScript, Vite,
 
 2. **Deploy on Vercel**:
    - Navigate to [vercel.com/new](https://vercel.com/new) and log in with your GitHub account.
-   - Click **Import** next to your `my-portfolio` repository.
+   - Click **Import** next to your `portfolio` repository.
    - Vercel automatically detects the Vite framework settings:
      - **Framework Preset**: Vite
      - **Build Command**: `npm run build`
      - **Output Directory**: `dist`
      - **Install Command**: `npm install`
    - Click **Deploy**. Your portfolio will be live in under a minute with automatic SSL, global CDN edge caching, and continuous deployment on every git push!
+
+---
+
+### 📄 Resume File
+
+Your PDF resume is saved in `/public/Anirudh_Pilla_Resume.pdf` and `/public/resume.pdf`. It is linked directly across the website:
+- **Hero Section**: "Download Resume (PDF)" button
+- **Resume Modal**: "Download PDF" toolbar button
+- **Contact Section & Footer**: Direct download links
 
 ---
 

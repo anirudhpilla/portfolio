@@ -103,6 +103,17 @@ B.Tech, Computer Science and Engineering (CGPA: 9.16/10) | Apr 2023
           </div>
 
           <div className="flex items-center gap-2">
+            <a
+              href="/Anirudh_Pilla_Resume.pdf"
+              download="Anirudh_Pilla_Resume.pdf"
+              id="resume-download-pdf-btn"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-xs font-bold text-neutral-950 transition-colors shadow-sm cursor-pointer"
+              title="Download Resume PDF"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download PDF</span>
+            </a>
+
             <button
               onClick={handleCopyPlainText}
               id="resume-copy-text-btn"

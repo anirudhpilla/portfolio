@@ -16,7 +16,9 @@ import {
   Code2,
   Phone,
   MapPin,
-  Award
+  Award,
+  Download,
+  FileText
 } from 'lucide-react';
 
 interface HeroProps {
@@ -138,11 +140,13 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
               </button>
 
               <a
-                href="#projects"
-                id="hero-view-projects-btn"
-                className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-neutral-200 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 transition-all cursor-pointer"
+                href="/Anirudh_Pilla_Resume.pdf"
+                download="Anirudh_Pilla_Resume.pdf"
+                id="hero-download-resume-pdf-btn"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-neutral-100 bg-neutral-900 hover:bg-neutral-800 border border-cyan-500/30 hover:border-cyan-400/60 shadow-lg shadow-cyan-500/10 transition-all cursor-pointer"
               >
-                <span>View Projects (Boltticket / LiveBoard)</span>
+                <Download className="w-4 h-4 text-cyan-400" />
+                <span>Download Resume (PDF)</span>
               </a>
 
               <button
@@ -150,7 +154,8 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
                 id="hero-resume-btn"
                 className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:text-white bg-neutral-900/60 hover:bg-neutral-800 border border-neutral-800 transition-all cursor-pointer"
               >
-                <span>Resume & Experience</span>
+                <FileText className="w-4 h-4 text-neutral-400" />
+                <span>Preview Resume</span>
               </button>
             </div>
 
