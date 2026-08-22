@@ -2,28 +2,38 @@ import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import fs from 'fs';
 import path from 'path';
 
-async function generateResume() {
+async function buildPdf() {
   const pdfDoc = await PDFDocument.create();
-  const timesRoman = await pdfDoc.embedFont(StandardFonts.TimesRoman);
-  const timesRomanBold = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
-  const timesRomanItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic);
+  
+  // Standard fonts guaranteed to be available in every PDF viewer
   const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+  const helveticaOblique = await pdfDoc.embedFont(StandardFonts.HelveticaOblique);
 
-  // US Letter dimensions: 612 x 792 pt
-  const page = pdfDoc.addPage([612, 792]);
-  const { width, height } = page.getSize();
-
+  // US Letter: 612 x 792 points
+  const pageWidth = 612;
+  const pageHeight = 792;
   const margin = 36; // 0.5 inch margins
-  let y = height - margin;
+  const contentWidth = pageWidth - margin * 2;
 
-  const primaryColor = rgb(0.05, 0.05, 0.05); // near black
-  const secondaryColor = rgb(0.3, 0.3, 0.3); // dark gray
-  const accentColor = rgb(0.05, 0.45, 0.7); // professional navy/blue
-  const dividerColor = rgb(0.7, 0.7, 0.7); // light divider line
+  let page = pdfDoc.addPage([pageWidth, pageHeight]);
+  let y = pageHeight - margin;
 
-  // Helper for drawing text
-  function drawText(text, x, yPos, font, size, color = primaryColor) {
+  const colorBlack = rgb(0.08, 0.08, 0.08);
+  const colorGray = rgb(0.35, 0.35, 0.35);
+  const colorNavy = rgb(0.05, 0.38, 0.65);
+  const colorLine = rgb(0.75, 0.75, 0.75);
+
+  function checkPageBreak(requiredSpace = 40) {
+    if (y - requiredSpace < margin + 20) {
+      page = pdfDoc.addPage([pageWidth, pageHeight]);
+      y = pageHeight - margin;
+      return true;
+    }
+    return false;
+  }
+
+  function drawText(text, x, yPos, font, size, color = colorBlack) {
     page.drawText(text, {
       x,
       y: yPos,
@@ -33,21 +43,20 @@ async function generateResume() {
     });
   }
 
-  // Helper for drawing section header with bottom line
   function drawSectionHeader(title) {
-    y -= 14;
-    drawText(title.toUpperCase(), margin, y, helveticaBold, 10.5, accentColor);
-    y -= 3;
+    checkPageBreak(35);
+    y -= 10;
+    drawText(title.toUpperCase(), margin, y, helveticaBold, 10, colorNavy);
+    y -= 4;
     page.drawLine({
       start: { x: margin, y },
-      end: { x: width - margin, y },
-      thickness: 0.8,
-      color: dividerColor,
+      end: { x: pageWidth - margin, y },
+      thickness: 0.75,
+      color: colorLine,
     });
     y -= 10;
   }
 
-  // Helper to wrap text
   function wrapText(text, font, fontSize, maxWidth) {
     const words = text.split(' ');
     const lines = [];
@@ -68,98 +77,101 @@ async function generateResume() {
     return lines;
   }
 
-  // 1. NAME & CONTACT HEADER
+  // 1. HEADER
   const name = "ANIRUDH PILLA";
-  const nameWidth = helveticaBold.widthOfTextAtSize(name, 19);
-  drawText(name, (width - nameWidth) / 2, y, helveticaBold, 19, primaryColor);
-  y -= 15;
+  const nameW = helveticaBold.widthOfTextAtSize(name, 18);
+  drawText(name, (pageWidth - nameW) / 2, y, helveticaBold, 18, colorBlack);
+  y -= 14;
 
-  const contactLine = "Visakhapatnam, India  |  (+91) 9949266794  |  anirudhxdev@gmail.com";
-  const contactWidth = helvetica.widthOfTextAtSize(contactLine, 9);
-  drawText(contactLine, (width - contactWidth) / 2, y, helvetica, 9, secondaryColor);
-  y -= 12;
+  const contact1 = "Visakhapatnam, India  •  (+91) 9949266794  •  anirudhxdev@gmail.com";
+  const contact1W = helvetica.widthOfTextAtSize(contact1, 8.5);
+  drawText(contact1, (pageWidth - contact1W) / 2, y, helvetica, 8.5, colorGray);
+  y -= 11;
 
-  const linksLine = "LinkedIn: linkedin.com/in/AnirudhPilla  |  GitHub: github.com/anirudhpilla  |  HackerRank: hackerrank.com/profile/anirudhxdev";
-  const linksWidth = helvetica.widthOfTextAtSize(linksLine, 8.5);
-  drawText(linksLine, (width - linksWidth) / 2, y, helvetica, 8.5, rgb(0.1, 0.4, 0.65));
+  const contact2 = "LinkedIn: linkedin.com/in/AnirudhPilla  •  GitHub: github.com/anirudhpilla  •  HackerRank: anirudhxdev";
+  const contact2W = helvetica.widthOfTextAtSize(contact2, 8.5);
+  drawText(contact2, (pageWidth - contact2W) / 2, y, helvetica, 8.5, colorNavy);
   y -= 6;
 
-  // 2. PROFESSIONAL SUMMARY
+  // 2. SUMMARY
   drawSectionHeader("Professional Summary");
-  const summaryText = "Software Development Engineer with 4+ years of experience building scalable, distributed, multi-tenant SaaS platforms. Experienced in microservices, event-driven architecture, and cloud-native systems, delivering production solutions for enterprise clients with a focus on performance, reliability, and system design.";
-  const summaryLines = wrapText(summaryText, timesRoman, 9.5, width - 2 * margin);
+  const summary = "Software Development Engineer with 4+ years of experience building scalable, distributed, multi-tenant SaaS platforms. Experienced in microservices, event-driven architecture, and cloud-native systems, delivering production solutions for enterprise clients with a focus on performance, reliability, and system design.";
+  const summaryLines = wrapText(summary, helvetica, 9, contentWidth);
   for (const line of summaryLines) {
-    drawText(line, margin, y, timesRoman, 9.5, primaryColor);
-    y -= 11.5;
-  }
-
-  // 3. TECHNICAL SKILLS
-  drawSectionHeader("Technical Skills");
-  const skills = [
-    { label: "Languages:", value: "JavaScript, TypeScript, Python, SQL" },
-    { label: "Frameworks:", value: "Node.js, NestJS, Express.js, React, Angular, TypeORM" },
-    { label: "Architecture:", value: "Microservices, Event-Driven Architecture, REST APIs, Multi-Tenant Systems, RBAC, SSO" },
-    { label: "Databases:", value: "PostgreSQL, MySQL, MongoDB, DynamoDB" },
-    { label: "Caching & Messaging:", value: "Redis (Lua Distributed Locks), RabbitMQ, BullMQ, Async Processing Pipelines" },
-    { label: "Cloud & DevOps:", value: "Docker, Jenkins, CI/CD, Grafana, Linux" },
-    { label: "AI-Assisted Tools:", value: "Claude Code, Cursor IDE" },
-    { label: "Core Practices:", value: "System Design, High-Concurrency Tuning, Unit & Integration Testing, Agile/Scrum" },
-  ];
-
-  for (const sk of skills) {
-    drawText(sk.label, margin, y, helveticaBold, 8.8, primaryColor);
-    const labelW = helveticaBold.widthOfTextAtSize(sk.label, 8.8);
-    drawText(sk.value, margin + labelW + 5, y, timesRoman, 9, secondaryColor);
+    drawText(line, margin, y, helvetica, 9, colorBlack);
     y -= 11;
   }
 
-  // 4. PROFESSIONAL EXPERIENCE
+  // 3. SKILLS
+  drawSectionHeader("Technical Skills");
+  const skills = [
+    { label: "Languages:", value: "JavaScript, TypeScript, Python, SQL" },
+    { label: "Frameworks & Runtimes:", value: "Node.js, NestJS, Express.js, React, Angular, TypeORM" },
+    { label: "Architecture & Systems:", value: "Microservices, Event-Driven Architecture, REST APIs, Multi-Tenant Systems, RBAC, SSO" },
+    { label: "Databases & Storage:", value: "PostgreSQL, MySQL, MongoDB, DynamoDB" },
+    { label: "Messaging & Caching:", value: "Redis (Lua Distributed Locks), RabbitMQ, BullMQ, Async Processing Pipelines" },
+    { label: "Cloud, DevOps & Tools:", value: "Docker, Jenkins, CI/CD, Grafana, Linux, Git, Claude Code, Cursor IDE" },
+    { label: "Engineering Practices:", value: "System Design, High-Concurrency Tuning, Unit & Integration Testing, Agile/Scrum" }
+  ];
+
+  for (const sk of skills) {
+    checkPageBreak(12);
+    drawText(sk.label, margin, y, helveticaBold, 8.5, colorBlack);
+    const labelW = helveticaBold.widthOfTextAtSize(sk.label, 8.5);
+    drawText(sk.value, margin + labelW + 6, y, helvetica, 8.5, colorGray);
+    y -= 11;
+  }
+
+  // 4. EXPERIENCE
   drawSectionHeader("Professional Experience");
 
-  // Company Line
-  drawText("Akrivia Automation Pvt. Ltd.", margin, y, helveticaBold, 10.5, primaryColor);
-  const dateStr = "Mar 2022 – Present";
-  const dateW = helveticaBold.widthOfTextAtSize(dateStr, 9.5);
-  drawText(dateStr, width - margin - dateW, y, helveticaBold, 9.5, primaryColor);
-  y -= 12;
+  checkPageBreak(25);
+  drawText("Akrivia Automation Pvt. Ltd.", margin, y, helveticaBold, 10, colorBlack);
+  const expDate = "Mar 2022 – Present";
+  const expDateW = helveticaBold.widthOfTextAtSize(expDate, 9);
+  drawText(expDate, pageWidth - margin - expDateW, y, helveticaBold, 9, colorBlack);
+  y -= 11;
 
-  drawText("Software Development Engineer", margin, y, timesRomanItalic, 9.5, secondaryColor);
-  const locStr = "Visakhapatnam, India";
-  const locW = timesRomanItalic.widthOfTextAtSize(locStr, 9.5);
-  drawText(locStr, width - margin - locW, y, timesRomanItalic, 9.5, secondaryColor);
+  drawText("Software Development Engineer", margin, y, helveticaOblique, 9, colorGray);
+  const expLoc = "Visakhapatnam, India";
+  const expLocW = helveticaOblique.widthOfTextAtSize(expLoc, 9);
+  drawText(expLoc, pageWidth - margin - expLocW, y, helveticaOblique, 9, colorGray);
   y -= 12;
 
   // Facttwin
-  drawText("• Facttwin (Industrial Automation SaaS)", margin + 4, y, helveticaBold, 9.2, primaryColor);
-  const facttwinDate = "Feb 2024 – Present";
-  const ftDateW = helvetica.widthOfTextAtSize(facttwinDate, 8.5);
-  drawText(facttwinDate, width - margin - ftDateW, y, helvetica, 8.5, secondaryColor);
-  y -= 11;
+  checkPageBreak(18);
+  drawText("Facttwin (Industrial Automation SaaS)", margin + 4, y, helveticaBold, 9, colorBlack);
+  const ftDate = "Feb 2024 – Present";
+  const ftDateW = helvetica.widthOfTextAtSize(ftDate, 8.5);
+  drawText(ftDate, pageWidth - margin - ftDateW, y, helvetica, 8.5, colorGray);
+  y -= 10;
 
-  const facttwinBullets = [
+  const ftBullets = [
     "Developed and scaled Machine Health Monitoring supporting 15+ enterprise clients with tenant-level data isolation using NestJS microservices and RabbitMQ-based event-driven architecture.",
     "Improved API performance by 33% by building a centralized NestJS API Gateway with Redis caching, RBAC enforcement, rate limiting, and circuit-breaking mechanisms.",
     "Reduced client onboarding time by 20% by implementing automated tenant provisioning workflows using RabbitMQ messaging, AES-encrypted communication, and multi-tenant configuration management.",
     "Designed scalable IoT telemetry processing pipelines using RabbitMQ and Redis, reducing anomaly detection latency while improving data reliability through a dual-database (MongoDB + SQL Server) architecture for time-series and relational workloads."
   ];
 
-  for (const bullet of facttwinBullets) {
-    const bulletLines = wrapText(bullet, timesRoman, 8.8, width - 2 * margin - 16);
-    drawText("–", margin + 14, y, helvetica, 8.8, secondaryColor);
-    for (let i = 0; i < bulletLines.length; i++) {
-      drawText(bulletLines[i], margin + 24, y, timesRoman, 8.8, primaryColor);
+  for (const bullet of ftBullets) {
+    const lines = wrapText(bullet, helvetica, 8.5, contentWidth - 16);
+    checkPageBreak(lines.length * 10.5 + 4);
+    drawText("•", margin + 10, y, helvetica, 8.5, colorNavy);
+    for (let i = 0; i < lines.length; i++) {
+      drawText(lines[i], margin + 20, y, helvetica, 8.5, colorBlack);
       y -= 10.5;
     }
     y -= 1;
   }
 
   // Akrivia HCM
-  y -= 2;
-  drawText("• Akrivia HCM (Enterprise HR Platform)", margin + 4, y, helveticaBold, 9.2, primaryColor);
+  y -= 3;
+  checkPageBreak(18);
+  drawText("Akrivia HCM (Enterprise HR Platform)", margin + 4, y, helveticaBold, 9, colorBlack);
   const hcmDate = "Mar 2022 – Jan 2024";
   const hcmDateW = helvetica.widthOfTextAtSize(hcmDate, 8.5);
-  drawText(hcmDate, width - margin - hcmDateW, y, helvetica, 8.5, secondaryColor);
-  y -= 11;
+  drawText(hcmDate, pageWidth - margin - hcmDateW, y, helvetica, 8.5, colorGray);
+  y -= 10;
 
   const hcmBullets = [
     "Developed scalable HR platform modules using NestJS, Angular, MySQL, and Redis, optimizing database queries and API workflows to improve response times by 12%.",
@@ -169,10 +181,11 @@ async function generateResume() {
   ];
 
   for (const bullet of hcmBullets) {
-    const bulletLines = wrapText(bullet, timesRoman, 8.8, width - 2 * margin - 16);
-    drawText("–", margin + 14, y, helvetica, 8.8, secondaryColor);
-    for (let i = 0; i < bulletLines.length; i++) {
-      drawText(bulletLines[i], margin + 24, y, timesRoman, 8.8, primaryColor);
+    const lines = wrapText(bullet, helvetica, 8.5, contentWidth - 16);
+    checkPageBreak(lines.length * 10.5 + 4);
+    drawText("•", margin + 10, y, helvetica, 8.5, colorNavy);
+    for (let i = 0; i < lines.length; i++) {
+      drawText(lines[i], margin + 20, y, helvetica, 8.5, colorBlack);
       y -= 10.5;
     }
     y -= 1;
@@ -184,29 +197,31 @@ async function generateResume() {
   const projects = [
     {
       title: "Boltticket: High-Concurrency Distributed Ticket Booking Platform",
-      tech: "Node.js, TypeScript, Redis (Lua), BullMQ, PostgreSQL, k6",
-      bullet: "Engineered a high-concurrency distributed ticket booking platform sustaining 955 RPS (57K+ req/min) with 0% error rate, achieving 3.05 ms median and 7.21 ms P95 latency through atomic Redis Lua distributed locking, BullMQ async workers, and PostgreSQL ACID row locks."
+      tech: "Node.js, TypeScript, Redis (Lua Locks), BullMQ, PostgreSQL, k6",
+      desc: "Engineered a high-concurrency distributed ticket booking platform sustaining 955 RPS (57K+ req/min) with 0% error rate, achieving 3.05 ms median and 7.21 ms P95 latency through atomic Redis Lua distributed locking, BullMQ async workers, and PostgreSQL ACID row locks."
     },
     {
       title: "LiveBoard: Real-Time Collaborative Whiteboard",
       tech: "React, Node.js, Socket.io, HTML5 Canvas, MongoDB",
-      bullet: "Built a real-time collaborative whiteboard with Socket.io and React, enabling sub-15ms multi-user synchronized drawing, delta WebSocket streaming, and persistent canvas snapshot history in MongoDB."
+      desc: "Built a real-time collaborative whiteboard with Socket.io and React, enabling sub-15ms multi-user synchronized drawing, delta WebSocket streaming, and persistent canvas snapshot history in MongoDB."
     },
     {
       title: "Face Filters & Emotion Recognition System",
       tech: "Python, MediaPipe, OpenCV, TensorFlow",
-      bullet: "Developed a real-time facial emotion recognition system with 82% accuracy, classifying 7 primary emotions via lightweight CNN to trigger dynamic facial AR overlays."
+      desc: "Developed a real-time facial emotion recognition system with 82% accuracy, classifying 7 primary emotions via lightweight CNN to trigger dynamic facial AR overlays."
     }
   ];
 
   for (const proj of projects) {
-    drawText(proj.title, margin, y, helveticaBold, 9, primaryColor);
-    y -= 10;
-    drawText(`Tech Stack: ${proj.tech}`, margin + 10, y, timesRomanItalic, 8.5, accentColor);
-    y -= 10;
-    const pLines = wrapText(proj.bullet, timesRoman, 8.8, width - 2 * margin - 10);
-    for (const pl of pLines) {
-      drawText(pl, margin + 10, y, timesRoman, 8.8, primaryColor);
+    checkPageBreak(30);
+    drawText(proj.title, margin, y, helveticaBold, 8.8, colorBlack);
+    y -= 9.5;
+    drawText(`Tech Stack: ${proj.tech}`, margin + 8, y, helveticaOblique, 8.2, colorNavy);
+    y -= 9.5;
+    const lines = wrapText(proj.desc, helvetica, 8.5, contentWidth - 8);
+    checkPageBreak(lines.length * 10.5 + 4);
+    for (const l of lines) {
+      drawText(l, margin + 8, y, helvetica, 8.5, colorBlack);
       y -= 10.5;
     }
     y -= 2;
@@ -214,27 +229,27 @@ async function generateResume() {
 
   // 6. EDUCATION
   drawSectionHeader("Education");
-  drawText("Raghu Engineering College", margin, y, helveticaBold, 9.5, primaryColor);
+  checkPageBreak(25);
+  drawText("Raghu Engineering College", margin, y, helveticaBold, 9.2, colorBlack);
   const gradDate = "Graduated: Apr 2023";
-  const gradW = helveticaBold.widthOfTextAtSize(gradDate, 9);
-  drawText(gradDate, width - margin - gradW, y, helveticaBold, 9, primaryColor);
-  y -= 11;
+  const gradW = helveticaBold.widthOfTextAtSize(gradDate, 8.8);
+  drawText(gradDate, pageWidth - margin - gradW, y, helveticaBold, 8.8, colorBlack);
+  y -= 10.5;
 
-  drawText("Bachelor of Technology (B.Tech), Computer Science and Engineering  |  CGPA: 9.16 / 10", margin, y, timesRoman, 9, secondaryColor);
+  drawText("Bachelor of Technology (B.Tech), Computer Science and Engineering  •  CGPA: 9.16 / 10", margin, y, helvetica, 8.8, colorGray);
   const eduLoc = "Visakhapatnam, India";
-  const eduLocW = timesRoman.widthOfTextAtSize(eduLoc, 9);
-  drawText(eduLoc, width - margin - eduLocW, y, timesRoman, 9, secondaryColor);
+  const eduLocW = helvetica.widthOfTextAtSize(eduLoc, 8.8);
+  drawText(eduLoc, pageWidth - margin - eduLocW, y, helvetica, 8.8, colorGray);
 
-  // Save PDF to public folder
   const pdfBytes = await pdfDoc.save();
   const publicDir = path.join(process.cwd(), 'public');
   if (!fs.existsSync(publicDir)) {
     fs.mkdirSync(publicDir, { recursive: true });
   }
 
-  fs.writeFileSync(path.join(publicDir, 'resume.pdf'), pdfBytes);
   fs.writeFileSync(path.join(publicDir, 'Anirudh_Pilla_Resume.pdf'), pdfBytes);
-  console.log('Successfully generated /public/resume.pdf and /public/Anirudh_Pilla_Resume.pdf');
+  fs.writeFileSync(path.join(publicDir, 'resume.pdf'), pdfBytes);
+  console.log(`Generated PDF with ${pdfDoc.getPageCount()} page(s), size: ${pdfBytes.length} bytes`);
 }
 
-generateResume().catch(console.error);
+buildPdf().catch(console.error);

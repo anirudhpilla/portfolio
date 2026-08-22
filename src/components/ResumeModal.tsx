@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { personalInfo, experienceData, skillCategories, projectsData } from '../data/portfolioData';
+import { downloadResumePdf } from '../utils/resumeDownload';
 import { 
   X, 
-  Printer, 
   Copy, 
   Check, 
   Download, 
+  Loader2,
   Mail, 
   Phone,
   Github, 
@@ -27,11 +28,17 @@ interface ResumeModalProps {
 
 export default function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
   const [copiedText, setCopiedText] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   if (!isOpen) return null;
 
-  const handlePrint = () => {
-    window.print();
+  const handleDownloadPdf = async () => {
+    try {
+      setIsDownloading(true);
+      await downloadResumePdf('Anirudh_Pilla_Resume.pdf');
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   const handleCopyPlainText = () => {
@@ -98,21 +105,30 @@ B.Tech, Computer Science and Engineering (CGPA: 9.16/10) | Apr 2023
         <div className="flex items-center justify-between pb-6 mb-6 border-b border-neutral-800">
           <div className="flex items-center gap-2">
             <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider font-semibold">
-              Official Resume Preview
+              Resume Preview
             </span>
           </div>
 
           <div className="flex items-center gap-2">
-            <a
-              href="/Anirudh_Pilla_Resume.pdf"
-              download="Anirudh_Pilla_Resume.pdf"
+            <button
+              onClick={handleDownloadPdf}
+              disabled={isDownloading}
               id="resume-download-pdf-btn"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-xs font-bold text-neutral-950 transition-colors shadow-sm cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 disabled:opacity-75 text-xs font-bold text-neutral-950 transition-colors shadow-sm cursor-pointer"
               title="Download Resume PDF"
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download PDF</span>
-            </a>
+              {isDownloading ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Generating PDF...</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download PDF</span>
+                </>
+              )}
+            </button>
 
             <button
               onClick={handleCopyPlainText}
@@ -133,19 +149,9 @@ B.Tech, Computer Science and Engineering (CGPA: 9.16/10) | Apr 2023
             </button>
 
             <button
-              onClick={handlePrint}
-              id="resume-print-btn"
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-xs font-medium text-neutral-300 transition-colors cursor-pointer"
-              title="Print or Save PDF"
-            >
-              <Printer className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Print / PDF</span>
-            </button>
-
-            <button
               onClick={onClose}
               id="resume-close-btn"
-              className="p-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-400 hover:text-white transition-colors cursor-pointer ml-1"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
