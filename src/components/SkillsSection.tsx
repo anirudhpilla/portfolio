@@ -8,14 +8,15 @@ import {
   CheckCircle2, 
   Sparkles,
   Zap,
-  ArrowRight
+  ArrowRight,
+  Bot
 } from 'lucide-react';
 
-const categoryIcons = {
-  backend: Server,
-  databases: Database,
-  frontend: Layout,
-  devops: Cpu,
+const categoryIcons: Record<string, any> = {
+  languages_frameworks: Server,
+  architecture_messaging: Cpu,
+  databases_caching: Database,
+  cloud_devops_ai: Layout,
 };
 
 export default function SkillsSection() {
@@ -43,19 +44,19 @@ export default function SkillsSection() {
               Skills & Engineering Stack
             </h2>
             <p className="text-neutral-400 text-base mt-2 max-w-xl">
-              Proven proficiency across the full application lifecycle with deep emphasis on high-concurrency Node.js microservices, Redis caching, SQL optimization, and React frontends.
+              Proven proficiency across the engineering lifecycle: Python/FastAPI and NestJS microservices, Redis caching & Lua locks, PostgreSQL/pgvector, and RabbitMQ pipelines.
             </p>
           </div>
 
-          {/* Category Filter Buttons */}
-          <div className="flex flex-wrap items-center gap-2 bg-neutral-900/80 p-1.5 rounded-xl border border-neutral-800/80">
+          {/* Category Filter Controls */}
+          <div className="flex flex-wrap items-center gap-1.5 bg-neutral-900/80 p-1.5 rounded-xl border border-neutral-800/80">
             <button
               onClick={() => setSelectedCategory('all')}
               id="skill-filter-all"
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap cursor-pointer ${
                 selectedCategory === 'all'
                   ? 'bg-cyan-500 text-neutral-950 font-semibold shadow-sm'
-                  : 'text-neutral-400 hover:text-white'
+                  : 'text-neutral-400 hover:text-white hover:bg-neutral-800/40'
               }`}
             >
               All Domains
@@ -65,10 +66,10 @@ export default function SkillsSection() {
                 key={cat.id}
                 id={`skill-filter-${cat.id}`}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap cursor-pointer ${
                   selectedCategory === cat.id
                     ? 'bg-cyan-500 text-neutral-950 font-semibold shadow-sm'
-                    : 'text-neutral-400 hover:text-white'
+                    : 'text-neutral-400 hover:text-white hover:bg-neutral-800/40'
                 }`}
               >
                 {cat.title.split('&')[0].trim()}
@@ -87,32 +88,32 @@ export default function SkillsSection() {
                 Architecture Blueprint
               </span>
               <h3 className="text-lg font-bold text-white mt-1">
-                How My Core Stack Delivers High Throughput
+                Zero-Bottleneck Distributed Data Flow
               </h3>
               <p className="text-xs text-neutral-400 mt-1">
-                Zero-bottleneck data flow from client trigger to persistent storage.
+                Optimized from client request to asynchronous queuing and dual-database persistence.
               </p>
             </div>
 
             <div className="md:col-span-3 flex flex-wrap md:flex-nowrap items-center justify-between gap-2 p-3 bg-neutral-950/80 rounded-xl border border-neutral-800/80">
               <div className="flex-1 min-w-[70px] text-center p-2 rounded-lg bg-neutral-900/80 border border-neutral-800">
-                <span className="block text-[11px] font-mono text-cyan-400 font-bold">React UI</span>
-                <span className="text-[10px] text-neutral-400">Interactive</span>
+                <span className="block text-[11px] font-mono text-cyan-400 font-bold">Client / UI</span>
+                <span className="text-[10px] text-neutral-400">React / REST</span>
               </div>
               <ArrowRight className="w-4 h-4 text-neutral-600 shrink-0 hidden sm:block" />
               <div className="flex-1 min-w-[70px] text-center p-2 rounded-lg bg-neutral-900/80 border border-neutral-800">
-                <span className="block text-[11px] font-mono text-emerald-400 font-bold">Node.js</span>
-                <span className="text-[10px] text-neutral-400">Microservices</span>
+                <span className="block text-[11px] font-mono text-emerald-400 font-bold">API Gateway</span>
+                <span className="text-[10px] text-neutral-400">NestJS / FastAPI</span>
               </div>
               <ArrowRight className="w-4 h-4 text-neutral-600 shrink-0 hidden sm:block" />
               <div className="flex-1 min-w-[70px] text-center p-2 rounded-lg bg-neutral-900/80 border border-neutral-800">
-                <span className="block text-[11px] font-mono text-red-400 font-bold">Redis</span>
-                <span className="text-[10px] text-neutral-400">Cache / Locks</span>
+                <span className="block text-[11px] font-mono text-red-400 font-bold">Redis / Queues</span>
+                <span className="text-[10px] text-neutral-400">Lua & RabbitMQ</span>
               </div>
               <ArrowRight className="w-4 h-4 text-neutral-600 shrink-0 hidden sm:block" />
               <div className="flex-1 min-w-[70px] text-center p-2 rounded-lg bg-neutral-900/80 border border-neutral-800">
-                <span className="block text-[11px] font-mono text-blue-400 font-bold">SQL DB</span>
-                <span className="text-[10px] text-neutral-400">ACID Storage</span>
+                <span className="block text-[11px] font-mono text-blue-400 font-bold">PostgreSQL</span>
+                <span className="text-[10px] text-neutral-400">pgvector & SQL</span>
               </div>
             </div>
           </div>
@@ -121,7 +122,7 @@ export default function SkillsSection() {
         {/* Skill Category Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredCategories.map((category) => {
-            const IconComponent = categoryIcons[category.id as keyof typeof categoryIcons] || Server;
+            const IconComponent = categoryIcons[category.id] || Server;
             return (
               <div
                 key={category.id}
@@ -153,8 +154,8 @@ export default function SkillsSection() {
                             {skill.name}
                           </span>
                           {skill.isPrimary && (
-                            <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                              Core
+                            <span className="text-[10px] font-mono text-cyan-400">
+                              (Core)
                             </span>
                           )}
                         </div>

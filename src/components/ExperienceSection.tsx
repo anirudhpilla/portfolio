@@ -1,5 +1,5 @@
 import { experienceData } from '../data/portfolioData';
-import { Briefcase, Calendar, MapPin, CheckCircle2, Building, Layers, Sparkles, TrendingUp } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, CheckCircle2, Building, Layers, Sparkles, TrendingUp, ShieldCheck } from 'lucide-react';
 
 export default function ExperienceSection() {
   return (
@@ -14,30 +14,30 @@ export default function ExperienceSection() {
               <span>Production Experience</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Professional Experience (4+ Years)
+              Work Experience (4+ Years)
             </h2>
             <p className="text-neutral-400 text-base mt-2 max-w-2xl">
-              Software Development Engineer with proven experience designing multi-tenant SaaS platforms, event-driven architectures, and high-performance microservices for enterprise clients.
+              Software Development Engineer with proven track record designing multi-tenant SaaS platforms, event-driven architectures, and high-performance microservices for enterprise clients.
             </p>
           </div>
 
           <div className="px-4 py-2 rounded-xl bg-neutral-900/80 border border-neutral-800 text-xs font-mono text-neutral-300">
-            <span className="text-cyan-400 font-bold">Akrivia Automation</span> • Mar 2022 – Present
+            <span className="text-cyan-400 font-bold">Akrivia Automation</span> • Mar 2022 – Aug 2026
           </div>
         </div>
 
         {/* Timeline List */}
-        <div className="space-y-10">
+        <div className="space-y-12">
           {experienceData.map((exp) => (
             <div 
               key={exp.id}
               id={`experience-item-${exp.id}`}
-              className="p-6 md:p-10 rounded-2xl bg-neutral-900/40 border border-neutral-800/90 shadow-xl"
+              className="p-6 md:p-10 rounded-2xl bg-neutral-900/40 border border-neutral-800/90 shadow-xl backdrop-blur-sm"
             >
               {/* Primary Role & Company Header */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-800">
                 <div>
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex items-center gap-3">
                     <div className="p-2.5 rounded-xl bg-neutral-800 text-cyan-400">
                       <Building className="w-5 h-5" />
                     </div>
@@ -45,15 +45,21 @@ export default function ExperienceSection() {
                       <h3 className="text-2xl font-bold text-white">
                         {exp.company}
                       </h3>
-                      <span className="text-sm font-semibold text-cyan-400 font-mono">
-                        {exp.role}
-                      </span>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-sm font-semibold text-cyan-400 font-mono">
+                          {exp.role}
+                        </span>
+                        <span className="text-neutral-600">•</span>
+                        <span className="text-xs text-neutral-400 font-mono">
+                          {exp.type}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-400">
-                  <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 text-neutral-300">
+                  <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-950 border border-neutral-800 text-cyan-300">
                     <Calendar className="w-3.5 h-3.5 text-cyan-400" />
                     {exp.period}
                   </span>
@@ -69,9 +75,9 @@ export default function ExperienceSection() {
                 {exp.summary}
               </p>
 
-              {/* Sub-Products Breakdown (Facttwin & Akrivia HCM) */}
+              {/* Sub-Products Breakdown */}
               {exp.subProducts && exp.subProducts.length > 0 && (
-                <div className="space-y-8 my-6">
+                <div className="space-y-6 my-6">
                   {exp.subProducts.map((prod, pIdx) => (
                     <div 
                       key={pIdx}
@@ -101,6 +107,18 @@ export default function ExperienceSection() {
                           </div>
                         ))}
                       </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* General achievements if any without subproducts */}
+              {(!exp.subProducts || exp.subProducts.length === 0) && (
+                <div className="space-y-2.5 my-6">
+                  {exp.achievements.map((ach, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-300">
+                      <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                      <span className="leading-relaxed">{ach}</span>
                     </div>
                   ))}
                 </div>

@@ -7,7 +7,6 @@ import {
   Github, 
   Linkedin, 
   Mail, 
-  ExternalLink, 
   Sparkles, 
   Database, 
   Server, 
@@ -19,7 +18,8 @@ import {
   MapPin,
   Award,
   Download,
-  FileText
+  FileText,
+  Bot
 } from 'lucide-react';
 
 interface HeroProps {
@@ -30,7 +30,7 @@ interface HeroProps {
 export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
-  const [activeTab, setActiveTab] = useState<'stack' | 'overview' | 'redis_sql'>('stack');
+  const [activeTab, setActiveTab] = useState<'cortex' | 'boltticket' | 'facttwin' | 'resume'>('cortex');
 
   const handleDownloadResume = (e: MouseEvent) => {
     e.preventDefault();
@@ -107,18 +107,18 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
 
             {/* Core Bio from Resume */}
             <p className="text-base sm:text-lg text-neutral-400 max-w-2xl leading-relaxed">
-              Software Development Engineer with <strong className="text-neutral-200 font-medium">4+ years</strong> of experience building scalable, distributed, multi-tenant SaaS platforms. Experienced in <strong className="text-neutral-200 font-medium">NestJS/Node.js microservices</strong>, <strong className="text-neutral-200 font-medium">RabbitMQ</strong> event-driven pipelines, <strong className="text-neutral-200 font-medium">Redis</strong> caching & distributed locking, and <strong className="text-neutral-200 font-medium">PostgreSQL/SQL</strong> optimization.
+              Software Development Engineer with <strong className="text-neutral-200 font-medium">4+ years</strong> of experience building scalable, distributed, multi-tenant SaaS platforms. Experienced in <strong className="text-neutral-200 font-medium">NestJS & FastAPI microservices</strong>, <strong className="text-neutral-200 font-medium">RabbitMQ</strong> event-driven pipelines, <strong className="text-neutral-200 font-medium">Redis</strong> distributed locking & caching, and <strong className="text-neutral-200 font-medium">PostgreSQL/pgvector</strong> systems design.
             </p>
 
             {/* Core Stack Pills */}
             <div className="flex flex-wrap items-center gap-2 pt-1">
               <span className="text-xs font-mono text-neutral-500 mr-1 uppercase tracking-wider">Core Stack:</span>
               {[
-                { name: 'NestJS / Node.js', icon: Server, color: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' },
-                { name: 'Microservices', icon: Layers, color: 'text-amber-400 bg-amber-500/10 border-amber-500/20' },
+                { name: 'Python & FastAPI', icon: Bot, color: 'text-amber-400 bg-amber-500/10 border-amber-500/20' },
+                { name: 'NestJS & Node.js', icon: Server, color: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' },
                 { name: 'RabbitMQ / Event-Driven', icon: Zap, color: 'text-purple-400 bg-purple-500/10 border-purple-500/20' },
                 { name: 'Redis (Lua / Locks)', icon: Zap, color: 'text-red-400 bg-red-500/10 border-red-500/20' },
-                { name: 'PostgreSQL / SQL', icon: Database, color: 'text-blue-400 bg-blue-500/10 border-blue-500/20' },
+                { name: 'PostgreSQL & pgvector', icon: Database, color: 'text-blue-400 bg-blue-500/10 border-blue-500/20' },
                 { name: 'React', icon: Code2, color: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20' },
               ].map((item) => {
                 const IconComponent = item.icon;
@@ -145,16 +145,14 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <a
-                href="/resume.pdf"
-                download="Anirudh_Pilla_Resume.pdf"
+              <button
                 onClick={handleDownloadResume}
                 id="hero-download-resume-pdf-btn"
                 className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-neutral-100 bg-neutral-900 hover:bg-neutral-800 border border-cyan-500/30 hover:border-cyan-400/60 shadow-lg shadow-cyan-500/10 transition-all cursor-pointer"
               >
                 <Download className="w-4 h-4 text-cyan-400" />
                 <span>Download Resume (PDF)</span>
-              </a>
+              </button>
 
               <button
                 onClick={onOpenResume}
@@ -273,88 +271,112 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
                   <div className="w-3 h-3 rounded-full bg-rose-500/80" />
                   <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                   <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                  <span className="ml-2 font-mono text-neutral-400 text-[11px]">anirudh.sde.ts</span>
+                  <span className="ml-2 font-mono text-neutral-400 text-[11px]">sde.anirudh.ts</span>
                 </div>
 
                 {/* Tab switchers */}
                 <div className="flex items-center gap-1 bg-neutral-900 p-0.5 rounded-md">
                   <button
-                    onClick={() => setActiveTab('stack')}
+                    onClick={() => setActiveTab('cortex')}
                     className={`px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
-                      activeTab === 'stack' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
+                      activeTab === 'cortex' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
                     }`}
                   >
-                    resume.json
+                    cortex.py
                   </button>
                   <button
-                    onClick={() => setActiveTab('redis_sql')}
+                    onClick={() => setActiveTab('boltticket')}
                     className={`px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
-                      activeTab === 'redis_sql' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
+                      activeTab === 'boltticket' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
                     }`}
                   >
                     boltticket.lua
                   </button>
                   <button
-                    onClick={() => setActiveTab('overview')}
+                    onClick={() => setActiveTab('facttwin')}
                     className={`px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
-                      activeTab === 'overview' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
+                      activeTab === 'facttwin' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
                     }`}
                   >
                     facttwin.sh
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('resume')}
+                    className={`px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
+                      activeTab === 'resume' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
+                    }`}
+                  >
+                    profile.json
                   </button>
                 </div>
               </div>
 
               {/* Terminal Code Body */}
-              <div className="p-5 font-mono text-xs text-neutral-300 leading-relaxed overflow-x-auto min-h-[340px]">
-                {activeTab === 'stack' && (
+              <div className="p-5 font-mono text-xs text-neutral-300 leading-relaxed overflow-x-auto min-h-[350px]">
+                {activeTab === 'cortex' && (
                   <div className="space-y-1">
-                    <p className="text-neutral-500">// Software Development Engineer profile</p>
-                    <p><span className="text-purple-400">export const</span> <span className="text-amber-300">anirudh</span> = &#123;</p>
-                    <p className="pl-4"><span className="text-cyan-300">name</span>: <span className="text-emerald-300">"Anirudh Pilla"</span>,</p>
-                    <p className="pl-4"><span className="text-cyan-300">role</span>: <span className="text-emerald-300">"Software Development Engineer"</span>,</p>
-                    <p className="pl-4"><span className="text-cyan-300">company</span>: <span className="text-emerald-300">"Akrivia Automation Pvt. Ltd."</span>,</p>
-                    <p className="pl-4"><span className="text-cyan-300">location</span>: <span className="text-emerald-300">"Visakhapatnam, India"</span>,</p>
-                    <p className="pl-4"><span className="text-cyan-300">experience</span>: <span className="text-emerald-300">"4+ Years"</span>,</p>
-                    <p className="pl-4"><span className="text-cyan-300">architecture</span>: [</p>
-                    <p className="pl-8"><span className="text-emerald-300">"NestJS Microservices & API Gateway"</span>,</p>
-                    <p className="pl-8"><span className="text-emerald-300">"RabbitMQ Event-Driven Pipelines"</span>,</p>
-                    <p className="pl-8"><span className="text-emerald-300">"Redis Lua Distributed Locking"</span>,</p>
-                    <p className="pl-8"><span className="text-emerald-300">"Multi-Tenant SaaS & Data Isolation"</span></p>
-                    <p className="pl-4">],</p>
-                    <p className="pl-4"><span className="text-cyan-300">education</span>: <span className="text-emerald-300">"B.Tech CSE (CGPA: 9.16/10)"</span></p>
-                    <p>&#125;;</p>
+                    <p className="text-neutral-500"># Cortex: Agentic RAG with pgvector HNSW & Cross-Encoder</p>
+                    <p><span className="text-purple-400">async def</span> <span className="text-amber-300">retrieve_and_rerank</span>(query: str, repo_id: str):</p>
+                    <p className="pl-4 text-neutral-400"># 1. pgvector approximate nearest neighbor lookup</p>
+                    <p className="pl-4">q_vec = <span className="text-purple-400">await</span> embed(query)</p>
+                    <p className="pl-4">docs = <span className="text-purple-400">await</span> db.query(</p>
+                    <p className="pl-8"><span className="text-emerald-300">"SELECT chunk, 1 - (embedding &lt;=&gt; $1) as sim "</span></p>
+                    <p className="pl-8"><span className="text-emerald-300">"FROM code_chunks ORDER BY embedding &lt;=&gt; $1 LIMIT 20"</span>,</p>
+                    <p className="pl-8">q_vec</p>
+                    <p className="pl-4">)</p>
+                    <p className="pl-4 text-neutral-400"># 2. Cross-encoder re-ranking for zero hallucination</p>
+                    <p className="pl-4">ranked = cross_encoder.rank(query, [d.chunk <span className="text-purple-400">for</span> d <span className="text-purple-400">in</span> docs])</p>
+                    <p className="pl-4"><span className="text-purple-400">return</span> stream_agent_execution(ranked[:5])</p>
                   </div>
                 )}
 
-                {activeTab === 'redis_sql' && (
+                {activeTab === 'boltticket' && (
                   <div className="space-y-1">
-                    <p className="text-neutral-500">-- Boltticket: Atomic Redis Lua Ticket Lock (955 RPS)</p>
+                    <p className="text-neutral-500">-- Boltticket: Atomic Redis Lua Ticket Lock (955 RPS, 3.05ms)</p>
                     <p><span className="text-purple-400">local</span> lockKey = <span className="text-emerald-300">"ticket:inventory:"</span> .. KEYS[1]</p>
                     <p><span className="text-purple-400">local</span> current = redis.<span className="text-cyan-300">call</span>(<span className="text-emerald-300">"GET"</span>, lockKey)</p>
                     <p><span className="text-purple-400">if</span> tonumber(current) &gt; 0 <span className="text-purple-400">then</span></p>
                     <p className="pl-4">redis.<span className="text-cyan-300">call</span>(<span className="text-emerald-300">"DECR"</span>, lockKey)</p>
                     <p className="pl-4">redis.<span className="text-cyan-300">call</span>(<span className="text-emerald-300">"SET"</span>, <span className="text-emerald-300">"hold:"</span> .. ARGV[1], KEYS[1], <span className="text-emerald-300">"EX"</span>, 600)</p>
-                    <p className="pl-4 text-emerald-400"><span className="text-neutral-500">-- Queue asynchronous confirmation to BullMQ / Postgres</span></p>
-                    <p className="pl-4"><span className="text-purple-400">return</span> 1 <span className="text-emerald-500">-- 3.05ms median latency</span></p>
+                    <p className="pl-4 text-emerald-400"><span className="text-neutral-500">-- Enqueue payment confirmation to BullMQ / Postgres</span></p>
+                    <p className="pl-4"><span className="text-purple-400">return</span> 1 <span className="text-emerald-500">-- Zero race conditions</span></p>
                     <p><span className="text-purple-400">else</span></p>
-                    <p className="pl-4"><span className="text-purple-400">return</span> 0 <span className="text-neutral-500">-- Sold out, zero race conditions</span></p>
+                    <p className="pl-4"><span className="text-purple-400">return</span> 0 <span className="text-neutral-500">-- Sold out cleanly</span></p>
                     <p><span className="text-purple-400">end</span></p>
                   </div>
                 )}
 
-                {activeTab === 'overview' && (
+                {activeTab === 'facttwin' && (
                   <div className="space-y-1">
-                    <p className="text-neutral-500"># Facttwin Industrial Automation Telemetry</p>
-                    <p><span className="text-cyan-400">$</span> facttwin-cluster --enterprise-tenants 15</p>
+                    <p className="text-neutral-500"># Facttwin & SmartFactory (Akrivia Automation)</p>
+                    <p><span className="text-cyan-400">$</span> facttwin-cluster --enterprise-clients 15</p>
                     <p className="text-neutral-400">-------------------------------------------</p>
-                    <p><span className="text-neutral-400">[GATEWAY]</span>: <span className="text-emerald-400">NestJS API Gateway (+33% speedup)</span></p>
-                    <p><span className="text-neutral-400">[MESSAGE_BUS]</span>: <span className="text-emerald-400">RabbitMQ Event Broker (Active)</span></p>
-                    <p><span className="text-neutral-400">[DATA_TIER]</span>: <span className="text-emerald-400">Dual DB (MongoDB + SQL Server)</span></p>
-                    <p><span className="text-neutral-400">[ONBOARDING]</span>: <span className="text-emerald-400">Automated Tenant Workflows (-20% time)</span></p>
-                    <p><span className="text-neutral-400">[ANOMALY_DETECTION]</span>: <span className="text-cyan-300">Sub-10ms Redis Thresholding</span></p>
+                    <p><span className="text-neutral-400">[GATEWAY]</span>: <span className="text-emerald-400">NestJS API Gateway (+33% performance gain)</span></p>
+                    <p><span className="text-neutral-400">[SMART_FACTORY]</span>: <span className="text-emerald-400">Python + FastAPI Backend Services</span></p>
+                    <p><span className="text-neutral-400">[EVENT_BUS]</span>: <span className="text-emerald-400">RabbitMQ Broker (AES-encrypted workflows)</span></p>
+                    <p><span className="text-neutral-400">[DATA_TIER]</span>: <span className="text-emerald-400">Dual DB (PostgreSQL + MongoDB)</span></p>
+                    <p><span className="text-neutral-400">[PROVISIONING]</span>: <span className="text-emerald-400">Automated Tenant Workflows (-20% time)</span></p>
+                    <p><span className="text-neutral-400">[ANOMALY]</span>: <span className="text-cyan-300">Sub-10ms Redis Threshold Pipeline</span></p>
                     <p className="text-neutral-400">-------------------------------------------</p>
-                    <p className="text-emerald-400 animate-pulse">● Facttwin & Akrivia HCM operating at enterprise scale.</p>
+                    <p className="text-emerald-400 animate-pulse">● Multi-tenant SaaS delivering industrial reliability.</p>
+                  </div>
+                )}
+
+                {activeTab === 'resume' && (
+                  <div className="space-y-1">
+                    <p className="text-neutral-500">// Anirudh Pilla — SDE Profile</p>
+                    <p><span className="text-purple-400">export const</span> <span className="text-amber-300">profile</span> = &#123;</p>
+                    <p className="pl-4"><span className="text-cyan-300">name</span>: <span className="text-emerald-300">"Anirudh Pilla"</span>,</p>
+                    <p className="pl-4"><span className="text-cyan-300">title</span>: <span className="text-emerald-300">"Software Development Engineer"</span>,</p>
+                    <p className="pl-4"><span className="text-cyan-300">experience</span>: <span className="text-emerald-300">"4+ Years"</span>,</p>
+                    <p className="pl-4"><span className="text-cyan-300">company</span>: <span className="text-emerald-300">"Akrivia Automation Pvt. Ltd."</span>,</p>
+                    <p className="pl-4"><span className="text-cyan-300">education</span>: <span className="text-emerald-300">"Raghu Eng College (CGPA: 9.16/10)"</span>,</p>
+                    <p className="pl-4"><span className="text-cyan-300">flagshipProjects</span>: [</p>
+                    <p className="pl-8"><span className="text-emerald-300">"Cortex (FastAPI, pgvector RAG, Local LLMs)"</span>,</p>
+                    <p className="pl-8"><span className="text-emerald-300">"Boltticket (955 RPS, Redis Lua, BullMQ)"</span>,</p>
+                    <p className="pl-8"><span className="text-emerald-300">"Facttwin (15+ Tenants, Dual-DB, RabbitMQ)"</span></p>
+                    <p className="pl-4">]</p>
+                    <p>&#125;;</p>
                   </div>
                 )}
               </div>
@@ -365,7 +387,7 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
                   <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Akrivia Automation SDE</span>
                 </span>
-                <span className="text-neutral-500">NestJS • RabbitMQ • Redis • SQL</span>
+                <span className="text-neutral-500">Python • FastAPI • NestJS • Redis • pgvector</span>
               </div>
             </div>
           </div>

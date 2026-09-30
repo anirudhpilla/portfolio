@@ -12,11 +12,12 @@ import {
   Code,
   Sparkles,
   ArrowRight,
-  Activity
+  Activity,
+  Bot
 } from 'lucide-react';
 
 export default function ArchitecturePlayground() {
-  const [selectedEndpointId, setSelectedEndpointId] = useState('boltticket_reserve');
+  const [selectedEndpointId, setSelectedEndpointId] = useState('cortex_rag');
   const [isRedisEnabled, setIsRedisEnabled] = useState(true);
   const [isSimulating, setIsSimulating] = useState(false);
   const [currentStep, setCurrentStep] = useState<number>(-1);
@@ -38,7 +39,7 @@ export default function ArchitecturePlayground() {
 
     // Step 0: Client sends request
     setTimeout(() => {
-      // Step 1: Node.js API Gateway
+      // Step 1: API Gateway (FastAPI / NestJS)
       setCurrentStep(1);
 
       setTimeout(() => {
@@ -59,25 +60,25 @@ export default function ArchitecturePlayground() {
             });
           }, 400);
         } else {
-          // Redis Disabled / Miss -> Microservices -> SQL Database
+          // Redis Disabled / Miss -> Microservices -> pgvector / SQL Database
           setCurrentStep(2); // Redis miss
           setTimeout(() => {
-            setCurrentStep(3); // Microservice + SQL query
+            setCurrentStep(3); // Microservice + Database query
             setTimeout(() => {
               setCurrentStep(4); // Finished
               setIsSimulating(false);
               setSimulationCompleted(true);
               setLastMetrics({
-                totalMs: selectedEndpoint.dbQueryTime + selectedEndpoint.serviceProcessingTime + 8,
+                totalMs: selectedEndpoint.dbQueryTime + selectedEndpoint.serviceProcessingTime + 4,
                 cacheHit: false,
                 dbQueries: 1,
                 savedLoad: '0% (Direct DB Load)'
               });
-            }, 600);
+            }, 550);
           }, 350);
         }
       }, 350);
-    }, 300);
+    }, 280);
   };
 
   const handleReset = () => {
@@ -98,10 +99,10 @@ export default function ArchitecturePlayground() {
             <span>Interactive System Engine</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Microservices & Redis Pipeline Simulator
+            Microservices, Redis & pgvector Architecture Simulator
           </h2>
           <p className="text-neutral-400 text-base mt-2">
-            Experience how I engineer low-latency architectures with Node.js, Redis In-Memory caching, and SQL database optimization.
+            Simulate real-world dataflows across Cortex agentic RAG, Boltticket 955 RPS distributed locks, and Facttwin IoT telemetry pipelines.
           </p>
         </div>
 
@@ -114,9 +115,9 @@ export default function ArchitecturePlayground() {
             {/* Endpoint Selector */}
             <div className="space-y-1.5 flex-1">
               <label className="text-xs font-mono text-neutral-400 uppercase tracking-wider block">
-                1. Select Simulated API Request:
+                1. Select Simulated System Request:
               </label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                 {sampleSimulationEndpoints.map((ep) => (
                   <button
                     key={ep.id}
@@ -148,7 +149,7 @@ export default function ArchitecturePlayground() {
                     Redis Cache
                   </span>
                   <span className="text-[10px] text-neutral-400 font-mono">
-                    {isRedisEnabled ? 'Cache-Aside (Warmed)' : 'Bypass to SQL'}
+                    {isRedisEnabled ? 'Cache-Aside (Warmed)' : 'Bypass to Database'}
                   </span>
                 </div>
                 <button
@@ -212,7 +213,7 @@ export default function ArchitecturePlayground() {
                 </div>
                 <div className="flex items-center gap-2 font-bold text-white text-sm mb-1">
                   <Activity className="w-4 h-4 text-cyan-400" />
-                  <span>React Client / User</span>
+                  <span>Client / Caller</span>
                 </div>
                 <p className="text-xs text-neutral-400">
                   Dispatches <code className="text-cyan-300 text-[11px] font-mono">{selectedEndpoint.name.split(' ')[1]}</code>
@@ -224,7 +225,7 @@ export default function ArchitecturePlayground() {
                 )}
               </div>
 
-              {/* Step 2: Node.js API Gateway & Microservices */}
+              {/* Step 2: API Gateway (FastAPI / NestJS) */}
               <div 
                 id="arch-step-gateway"
                 className={`p-4 rounded-xl border transition-all duration-300 ${
@@ -239,14 +240,14 @@ export default function ArchitecturePlayground() {
                 </div>
                 <div className="flex items-center gap-2 font-bold text-white text-sm mb-1">
                   <Server className="w-4 h-4 text-emerald-400" />
-                  <span>Node.js API Gateway</span>
+                  <span>API Gateway & Runtimes</span>
                 </div>
                 <p className="text-xs text-neutral-400">
-                  Rate limiter & JWT auth validation check.
+                  FastAPI / NestJS Gateway, RBAC & rate limiter.
                 </p>
                 {currentStep >= 1 && (
                   <div className="mt-3 pt-2 border-t border-emerald-500/20 text-[11px] font-mono text-emerald-300 flex items-center gap-1">
-                    <ShieldCheck className="w-3 h-3" /> Auth OK (+{selectedEndpoint.serviceProcessingTime}ms)
+                    <ShieldCheck className="w-3 h-3" /> Gateway OK (+{selectedEndpoint.serviceProcessingTime}ms)
                   </div>
                 )}
               </div>
@@ -257,10 +258,10 @@ export default function ArchitecturePlayground() {
                 className={`p-4 rounded-xl border transition-all duration-300 ${
                   currentStep >= 2 
                     ? isRedisEnabled 
-                      ? 'bg-red-500/10 border-red-500/50 text-red-300 ring-1 ring-red-500/30' 
-                      : 'bg-amber-500/10 border-amber-500/40 text-amber-300'
-                    : 'bg-neutral-950 border-neutral-800 text-neutral-400'
-                }`}
+                    : 'bg-amber-500/10 border-amber-500/40 text-amber-300'
+                } ${
+                  currentStep >= 2 && isRedisEnabled ? 'bg-red-500/10 border-red-500/50 text-red-300 ring-1 ring-red-500/30' : ''
+                } ${currentStep < 2 ? 'bg-neutral-950 border-neutral-800 text-neutral-400' : ''}`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[11px] font-mono uppercase text-neutral-500">Node 03</span>
@@ -268,16 +269,16 @@ export default function ArchitecturePlayground() {
                 </div>
                 <div className="flex items-center gap-2 font-bold text-white text-sm mb-1">
                   <Zap className="w-4 h-4 text-red-400" />
-                  <span>Redis Cache Layer</span>
+                  <span>Redis / Lua Locks Layer</span>
                 </div>
                 <p className="text-xs text-neutral-400">
-                  {isRedisEnabled ? 'In-Memory Cache Key Lookup' : 'Cache Bypassed / Miss'}
+                  {isRedisEnabled ? 'In-Memory Cache Key / Lua Lock' : 'Cache Bypassed / Miss'}
                 </p>
                 {currentStep >= 2 && (
                   <div className="mt-3 pt-2 border-t border-neutral-700/50 text-[11px] font-mono flex items-center gap-1">
                     {isRedisEnabled ? (
                       <span className="text-emerald-400 font-bold flex items-center gap-1">
-                        <Sparkles className="w-3 h-3" /> CACHE HIT ({selectedEndpoint.redisCacheTime}ms)
+                        <Sparkles className="w-3 h-3" /> CACHE / LOCK HIT ({selectedEndpoint.redisCacheTime}ms)
                       </span>
                     ) : (
                       <span className="text-amber-400 font-bold">CACHE MISS ➔ FALLTHROUGH</span>
@@ -286,7 +287,7 @@ export default function ArchitecturePlayground() {
                 )}
               </div>
 
-              {/* Step 4: SQL Database */}
+              {/* Step 4: Database & pgvector Layer */}
               <div 
                 id="arch-step-sql"
                 className={`p-4 rounded-xl border transition-all duration-300 ${
@@ -303,10 +304,10 @@ export default function ArchitecturePlayground() {
                 </div>
                 <div className="flex items-center gap-2 font-bold text-white text-sm mb-1">
                   <Database className="w-4 h-4 text-blue-400" />
-                  <span>SQL Relational DB</span>
+                  <span>PostgreSQL & pgvector</span>
                 </div>
                 <p className="text-xs text-neutral-400">
-                  Indexed ACID storage with connection pooling.
+                  pgvector HNSW vector search / Dual-DB storage.
                 </p>
                 {currentStep >= 3 ? (
                   <div className="mt-3 pt-2 border-t border-blue-500/20 text-[11px] font-mono text-blue-300 flex items-center gap-1">
@@ -314,7 +315,7 @@ export default function ArchitecturePlayground() {
                   </div>
                 ) : isRedisEnabled && currentStep >= 4 ? (
                   <div className="mt-3 pt-2 border-t border-neutral-800 text-[11px] font-mono text-neutral-500">
-                    💤 Skipped (Saved 100% DB Load)
+                    💤 Skipped (Saved 96% DB Load)
                   </div>
                 ) : null}
               </div>
@@ -338,7 +339,7 @@ export default function ArchitecturePlayground() {
                       Request Cycle Completed
                     </h4>
                     <span className="text-xs text-neutral-400 font-mono">
-                      {lastMetrics.cacheHit ? '⚡ High-speed In-Memory Resolution' : '🔍 SQL Direct Query with Execution Plan'}
+                      {lastMetrics.cacheHit ? '⚡ High-speed In-Memory / Distributed Lock Resolution' : '🔍 Database Query Executed (pgvector / SQL)'}
                     </span>
                   </div>
                 </div>
@@ -346,7 +347,7 @@ export default function ArchitecturePlayground() {
                 <div className="flex items-center gap-6 text-xs font-mono">
                   <div>
                     <span className="text-neutral-500 block">Total Latency:</span>
-                    <span className={`text-base font-bold ${lastMetrics.totalMs < 10 ? 'text-emerald-400' : 'text-amber-400'}`}>
+                    <span className={`text-base font-bold ${lastMetrics.totalMs < 15 ? 'text-emerald-400' : 'text-amber-400'}`}>
                       {lastMetrics.totalMs} ms
                     </span>
                   </div>
@@ -367,14 +368,14 @@ export default function ArchitecturePlayground() {
                 </div>
               </div>
 
-              {/* SQL Query Preview */}
+              {/* Statement Preview */}
               <div className="mt-4 pt-2">
                 <div className="flex items-center justify-between mb-1.5 text-xs text-neutral-400">
                   <span className="font-mono flex items-center gap-1.5">
                     <Code className="w-3.5 h-3.5 text-neutral-500" />
-                    SQL Query Statement (Normalized Schema)
+                    Query / Script Execution Logic
                   </span>
-                  <span className="text-[11px] text-neutral-500 font-mono">PostgreSQL / MySQL</span>
+                  <span className="text-[11px] text-neutral-500 font-mono">PostgreSQL / Redis Lua / MongoDB</span>
                 </div>
                 <pre className="p-3 rounded-lg bg-neutral-900 text-xs font-mono text-cyan-300 overflow-x-auto border border-neutral-800">
                   {selectedEndpoint.queryDescription}

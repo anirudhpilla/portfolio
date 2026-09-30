@@ -4,7 +4,7 @@ export interface Project {
   tagline: string;
   description: string;
   longDescription: string;
-  category: 'Backend & Microservices' | 'Full-Stack' | 'Distributed Systems' | 'AI & Computer Vision';
+  category: 'Backend & Microservices' | 'Full-Stack' | 'Distributed Systems' | 'AI & Computer Vision' | 'AI & Agentic Systems';
   techStack: string[];
   metrics: { label: string; value: string }[];
   architectureHighlights: string[];

@@ -3,10 +3,8 @@ import { personalInfo } from '../data/portfolioData';
 import { 
   Menu, 
   X, 
-  Terminal, 
   Github, 
   Linkedin, 
-  Mail, 
   FileText,
   Send,
   Award
@@ -48,8 +46,8 @@ export default function Navbar({ onOpenResume, onOpenContact }: NavbarProps) {
 
   const navLinks = [
     { label: 'About', href: '#hero', id: 'hero' },
-    { label: 'Skills & Stack', href: '#skills', id: 'skills' },
-    { label: 'System Flow', href: '#architecture', id: 'architecture' },
+    { label: 'Skills', href: '#skills', id: 'skills' },
+    { label: 'Architecture', href: '#architecture', id: 'architecture' },
     { label: 'Experience', href: '#experience', id: 'experience' },
     { label: 'Projects', href: '#projects', id: 'projects' },
     { label: 'Contact', href: '#contact', id: 'contact' },
@@ -60,35 +58,23 @@ export default function Navbar({ onOpenResume, onOpenContact }: NavbarProps) {
       id="main-navbar"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-neutral-950/85 backdrop-blur-md border-b border-neutral-800/80 shadow-lg shadow-black/40 py-3.5' 
+          ? 'bg-neutral-950/90 backdrop-blur-md border-b border-neutral-800/80 shadow-lg shadow-black/40 py-3.5' 
           : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
-        {/* Brand / Logo */}
+        {/* Zone 1: Single text element wordmark (Top Bar Contract) */}
         <a 
           href="#hero" 
           id="nav-brand-link"
-          className="group flex items-center gap-3 text-neutral-100 font-bold tracking-tight hover:text-white transition-colors"
+          className="text-lg font-bold tracking-tight text-white hover:text-cyan-300 transition-colors whitespace-nowrap"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 p-[1px] shadow-md shadow-cyan-500/10">
-            <div className="w-full h-full bg-neutral-950 rounded-[11px] flex items-center justify-center group-hover:bg-neutral-900 transition-colors">
-              <Terminal className="w-5 h-5 text-cyan-400" />
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-base font-bold text-neutral-100 group-hover:text-cyan-300 transition-colors flex items-center gap-1.5">
-              {personalInfo.name}
-            </span>
-            <span className="text-xs text-neutral-400 font-mono font-normal">
-              SDE · 4+ yrs · Akrivia Automation
-            </span>
-          </div>
+          {personalInfo.name}
         </a>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-neutral-900/60 border border-neutral-800/80 px-3 py-1.5 rounded-full backdrop-blur-md">
+        {/* Zone 2: 4-6 clean text navigation links */}
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-300">
           {navLinks.map((link) => {
             const isActive = activeSection === link.id;
             return (
@@ -96,10 +82,10 @@ export default function Navbar({ onOpenResume, onOpenContact }: NavbarProps) {
                 key={link.id}
                 id={`nav-link-${link.id}`}
                 href={link.href}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+                className={`transition-colors whitespace-nowrap ${
                   isActive
-                    ? 'bg-neutral-800 text-cyan-400 font-semibold shadow-inner'
-                    : 'text-neutral-300 hover:text-white hover:bg-neutral-800/50'
+                    ? 'text-cyan-400 font-semibold'
+                    : 'hover:text-white text-neutral-400'
                 }`}
               >
                 {link.label}
@@ -108,43 +94,12 @@ export default function Navbar({ onOpenResume, onOpenContact }: NavbarProps) {
           })}
         </nav>
 
-        {/* Desktop Actions */}
+        {/* Zone 3: 1-2 primary actions */}
         <div className="hidden lg:flex items-center gap-3">
-          <a 
-            href={personalInfo.githubUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            id="nav-github-link"
-            className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 transition-all"
-            title="GitHub Profile"
-          >
-            <Github className="w-4 h-4" />
-          </a>
-          <a 
-            href={personalInfo.linkedinUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            id="nav-linkedin-link"
-            className="p-2 rounded-lg text-neutral-400 hover:text-[#0A66C2] hover:bg-neutral-900 border border-transparent hover:border-neutral-800 transition-all"
-            title="LinkedIn Profile"
-          >
-            <Linkedin className="w-4 h-4" />
-          </a>
-          <a 
-            href={personalInfo.hackerrankUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            id="nav-hackerrank-link"
-            className="p-2 rounded-lg text-neutral-400 hover:text-emerald-400 hover:bg-neutral-900 border border-transparent hover:border-neutral-800 transition-all"
-            title="HackerRank Profile"
-          >
-            <Award className="w-4 h-4" />
-          </a>
-
           <button
             onClick={onOpenResume}
             id="nav-resume-btn"
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium text-neutral-200 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 transition-all shadow-sm cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium text-neutral-200 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 transition-all shadow-sm cursor-pointer whitespace-nowrap"
           >
             <FileText className="w-3.5 h-3.5 text-cyan-400" />
             <span>Resume</span>
@@ -153,10 +108,10 @@ export default function Navbar({ onOpenResume, onOpenContact }: NavbarProps) {
           <button
             onClick={onOpenContact}
             id="nav-contact-btn"
-            className="flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-semibold text-neutral-950 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 transition-all shadow-md shadow-cyan-500/20 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-semibold text-neutral-950 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 transition-all shadow-md shadow-cyan-500/20 cursor-pointer whitespace-nowrap"
           >
             <Send className="w-3.5 h-3.5" />
-            <span>Let's Connect</span>
+            <span>Contact</span>
           </button>
         </div>
 
@@ -194,38 +149,13 @@ export default function Navbar({ onOpenResume, onOpenContact }: NavbarProps) {
           </div>
 
           <div className="pt-3 border-t border-neutral-800 flex flex-col gap-2.5">
-            <div className="flex items-center gap-2 justify-around py-2">
-              <a
-                href={personalInfo.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-md text-xs text-neutral-300 bg-neutral-900 border border-neutral-800"
-              >
-                <Github className="w-4 h-4" /> GitHub
-              </a>
-              <a
-                href={personalInfo.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-md text-xs text-neutral-300 bg-neutral-900 border border-neutral-800"
-              >
-                <Linkedin className="w-4 h-4 text-[#0A66C2]" /> LinkedIn
-              </a>
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-md text-xs text-neutral-300 bg-neutral-900 border border-neutral-800"
-              >
-                <Mail className="w-4 h-4 text-cyan-400" /> Email
-              </a>
-            </div>
-
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenResume();
                 }}
-                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-medium text-neutral-200 bg-neutral-900 border border-neutral-800"
+                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-medium text-neutral-200 bg-neutral-900 border border-neutral-800 cursor-pointer"
               >
                 <FileText className="w-4 h-4 text-cyan-400" />
                 Resume
@@ -235,7 +165,7 @@ export default function Navbar({ onOpenResume, onOpenContact }: NavbarProps) {
                   setMobileMenuOpen(false);
                   onOpenContact();
                 }}
-                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold text-neutral-950 bg-cyan-400"
+                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold text-neutral-950 bg-cyan-400 cursor-pointer"
               >
                 <Send className="w-4 h-4" />
                 Contact

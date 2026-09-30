@@ -8,7 +8,8 @@ import {
   Cpu, 
   Zap, 
   ShieldCheck,
-  TrendingUp
+  TrendingUp,
+  Bot
 } from 'lucide-react';
 
 interface ProjectModalProps {
@@ -41,10 +42,16 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         </button>
 
         {/* Category & Title */}
-        <div className="mb-4">
-          <span className="inline-block px-3 py-1 rounded-md text-xs font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-2">
-            {project.category}
-          </span>
+        <div className="mb-4 pr-10">
+          <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 mb-2">
+            <span>{project.category}</span>
+            {project.featured && (
+              <>
+                <span className="text-neutral-600">·</span>
+                <span className="text-amber-400">Featured System</span>
+              </>
+            )}
+          </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
             {project.title}
           </h2>
@@ -54,11 +61,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         </div>
 
         {/* Metrics Grid */}
-        <div className="grid grid-cols-3 gap-3 my-5 p-3 rounded-xl bg-neutral-950 border border-neutral-800">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-5 p-3.5 rounded-xl bg-neutral-950 border border-neutral-800">
           {project.metrics.map((metric, idx) => (
             <div key={idx} className="text-center p-2">
-              <span className="text-[11px] font-mono text-neutral-400 block">{metric.label}</span>
-              <span className="text-base sm:text-lg font-extrabold text-cyan-400 font-mono mt-0.5 block">{metric.value}</span>
+              <span className="text-[11px] font-mono text-neutral-400 block truncate">{metric.label}</span>
+              <span className="text-sm sm:text-base font-extrabold text-cyan-400 font-mono mt-0.5 block truncate">{metric.value}</span>
             </div>
           ))}
         </div>
@@ -77,7 +84,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
         {/* Detailed Description */}
         <div className="space-y-4 mb-6 text-sm text-neutral-300 leading-relaxed">
-          <h4 className="text-xs font-mono text-neutral-400 uppercase tracking-wider">
+          <h4 className="text-xs font-mono text-cyan-400 uppercase tracking-wider font-semibold">
             Technical Problem & Architecture Solution
           </h4>
           <p>{project.longDescription}</p>
@@ -85,7 +92,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
         {/* Architecture Highlights */}
         <div className="space-y-2.5 mb-6">
-          <h4 className="text-xs font-mono text-neutral-400 uppercase tracking-wider">
+          <h4 className="text-xs font-mono text-cyan-400 uppercase tracking-wider font-semibold">
             System Design Highlights
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">

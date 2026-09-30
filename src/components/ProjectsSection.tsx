@@ -4,13 +4,14 @@ import { Project } from '../types';
 import { 
   FolderGit2, 
   Github, 
-  ExternalLink, 
   ArrowUpRight, 
   Zap, 
   Layers, 
   Server,
   Sparkles,
-  Info
+  Info,
+  Bot,
+  Activity
 } from 'lucide-react';
 
 interface ProjectsSectionProps {
@@ -20,7 +21,14 @@ interface ProjectsSectionProps {
 export default function ProjectsSection({ onSelectProject }: ProjectsSectionProps) {
   const [selectedFilter, setSelectedFilter] = useState<string>('All');
 
-  const categories = ['All', 'Backend & Microservices', 'Distributed Systems', 'Full-Stack'];
+  const categories = [
+    'All', 
+    'AI & Agentic Systems', 
+    'Distributed Systems', 
+    'Backend & Microservices', 
+    'Full-Stack',
+    'AI & Computer Vision'
+  ];
 
   const filteredProjects = selectedFilter === 'All'
     ? projectsData
@@ -35,27 +43,27 @@ export default function ProjectsSection({ onSelectProject }: ProjectsSectionProp
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-neutral-900 border border-neutral-800 text-xs font-mono text-cyan-400 mb-3">
               <FolderGit2 className="w-3.5 h-3.5" />
-              <span>Featured Engineering</span>
+              <span>Engineering Portfolio</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Highlighted Projects & Systems
+              Featured Projects & Systems
             </h2>
             <p className="text-neutral-400 text-base mt-2 max-w-xl">
-              Production architectures engineered for high throughput, sub-millisecond cache latency, and data integrity.
+              Production-grade systems engineered for high concurrency (955 RPS), real-time streaming RAG agents, and sub-millisecond Redis distributed locks.
             </p>
           </div>
 
-          {/* Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 bg-neutral-900/80 p-1.5 rounded-xl border border-neutral-800">
+          {/* Filter Controls (Segmented Tabs with click handlers) */}
+          <div className="flex flex-wrap items-center gap-1.5 bg-neutral-900/80 p-1.5 rounded-xl border border-neutral-800">
             {categories.map((cat) => (
               <button
                 key={cat}
-                id={`project-filter-${cat.toLowerCase().replace(/\s+/g, '-')}`}
+                id={`project-filter-${cat.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
                 onClick={() => setSelectedFilter(cat)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap cursor-pointer ${
                   selectedFilter === cat
                     ? 'bg-cyan-500 text-neutral-950 font-semibold shadow-sm'
-                    : 'text-neutral-400 hover:text-white'
+                    : 'text-neutral-400 hover:text-white hover:bg-neutral-800/40'
                 }`}
               >
                 {cat}
@@ -70,13 +78,23 @@ export default function ProjectsSection({ onSelectProject }: ProjectsSectionProp
             <div
               key={project.id}
               id={`project-card-${project.id}`}
-              className="group flex flex-col rounded-2xl bg-neutral-900/40 border border-neutral-800/90 hover:border-neutral-700/90 transition-all hover:bg-neutral-900/70 p-6 md:p-8 relative shadow-xl overflow-hidden"
+              className={`group flex flex-col rounded-2xl bg-neutral-900/40 border transition-all hover:bg-neutral-900/70 p-6 md:p-8 relative shadow-xl overflow-hidden ${
+                project.featured 
+                  ? 'border-cyan-500/30 hover:border-cyan-400/60' 
+                  : 'border-neutral-800/90 hover:border-neutral-700/90'
+              }`}
             >
               {/* Top Meta Bar */}
               <div className="flex items-center justify-between gap-3 mb-4">
-                <span className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                  {project.category}
-                </span>
+                <div className="flex items-center gap-2 text-xs text-neutral-400 font-mono">
+                  <span className="text-cyan-400 font-semibold">{project.category}</span>
+                  {project.featured && (
+                    <>
+                      <span aria-hidden="true" className="text-neutral-600">·</span>
+                      <span className="text-amber-400">Featured System</span>
+                    </>
+                  )}
+                </div>
 
                 <div className="flex items-center gap-2">
                   <a
@@ -113,15 +131,23 @@ export default function ProjectsSection({ onSelectProject }: ProjectsSectionProp
                 {project.description}
               </p>
 
-              {/* Metrics Pills */}
-              <div className="grid grid-cols-3 gap-2 my-auto py-3 px-3.5 rounded-xl bg-neutral-950/80 border border-neutral-800/80 mb-5">
+              {/* Metrics Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 my-auto py-3 px-3.5 rounded-xl bg-neutral-950/80 border border-neutral-800/80 mb-5">
                 {project.metrics.map((m, idx) => (
                   <div key={idx} className="text-center">
                     <span className="text-[10px] font-mono text-neutral-500 block truncate">{m.label}</span>
-                    <span className="text-xs sm:text-sm font-mono font-bold text-cyan-400 block mt-0.5">{m.value}</span>
+                    <span className="text-xs sm:text-sm font-mono font-bold text-cyan-400 block mt-0.5 truncate">{m.value}</span>
                   </div>
                 ))}
               </div>
+
+              {/* System Architecture Snippet */}
+              {project.systemDiagramSnippet && (
+                <div className="mb-4 p-2.5 rounded-lg bg-neutral-950/80 border border-neutral-800/70 text-[11px] font-mono text-neutral-400 overflow-x-auto whitespace-nowrap">
+                  <span className="text-neutral-500 mr-1">Dataflow:</span>
+                  <span className="text-cyan-300">{project.systemDiagramSnippet}</span>
+                </div>
+              )}
 
               {/* Tech Stack Badges */}
               <div className="flex flex-wrap items-center gap-1.5 pt-4 border-t border-neutral-800/60 mt-2">

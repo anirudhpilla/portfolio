@@ -8,27 +8,30 @@ export const personalInfo: PersonalInfo = {
   phone: '(+91) 9949266794',
   githubUrl: 'https://github.com/anirudhpilla',
   linkedinUrl: 'https://www.linkedin.com/in/AnirudhPilla',
-  hackerrankUrl: 'https://www.hackerrank.com/profile/anirudhxdev',
+  hackerrankUrl: 'https://www.hackerrank.com/profile/19981A05C4',
   location: 'Visakhapatnam, India',
   status: 'Open to High-Impact Opportunities',
   bio: 'Software Development Engineer with 4+ years of experience building scalable, distributed, multi-tenant SaaS platforms. Experienced in microservices, event-driven architecture, and cloud-native systems, delivering production solutions for enterprise clients with focus on performance, reliability, and system design.',
   coreSkills: [
-    'Node.js', 
-    'NestJS', 
-    'Express.js', 
-    'React', 
-    'PostgreSQL', 
-    'Redis', 
-    'Microservices', 
-    'RabbitMQ', 
-    'TypeScript', 
-    'SQL'
+    'Python',
+    'FastAPI',
+    'Node.js',
+    'NestJS',
+    'Express.js',
+    'React',
+    'PostgreSQL',
+    'Redis',
+    'RabbitMQ',
+    'TypeScript',
+    'SQL',
+    'Docker',
+    'AWS'
   ],
   education: {
     institution: 'Raghu Engineering College',
     degree: 'B.Tech, Computer Science and Engineering',
     grade: 'CGPA: 9.16/10',
-    period: 'Apr 2023',
+    period: 'Mar 2023',
     location: 'Visakhapatnam, India'
   }
 };
@@ -62,43 +65,50 @@ export const metricsData = [
 
 export const skillCategories: SkillCategory[] = [
   {
-    id: 'frameworks',
-    title: 'Frameworks & Runtime',
-    description: 'Scalable server runtimes, enterprise application frameworks, and reactive UI.',
+    id: 'languages_frameworks',
+    title: 'Languages & Frameworks',
+    description: 'Modern server runtimes, asynchronous frameworks, and scalable web architectures.',
     iconName: 'Server',
     skills: [
+      {
+        name: 'Python & FastAPI',
+        level: 94,
+        experience: '4+ Years',
+        useCase: 'High-speed asynchronous APIs, RAG agent backends, SmartFactory services, Pydantic validation',
+        isPrimary: true
+      },
       {
         name: 'Node.js & NestJS',
         level: 96,
         experience: '4+ Years',
-        useCase: 'Centralized API Gateways, dependency injection, microservices, modular services',
+        useCase: 'Centralized API Gateways, dependency injection, microservices, modular domain services',
         isPrimary: true
       },
       {
-        name: 'Express.js',
-        level: 94,
+        name: 'TypeScript & JavaScript',
+        level: 96,
         experience: '4+ Years',
-        useCase: 'High-speed RESTful routing, custom middleware pipelines, token verification',
+        useCase: 'Strict typing, domain-driven models, asynchronous event loops, clean architecture',
         isPrimary: true
       },
       {
-        name: 'React',
+        name: 'React & Angular',
         level: 90,
         experience: '4+ Years',
-        useCase: 'Dynamic dashboard SPAs, component systems, state hydration, WebSocket hooks',
+        useCase: 'Dynamic dashboard SPAs, component systems, state management, enterprise UI modules',
         isPrimary: true
       },
       {
-        name: 'Angular & TypeORM',
-        level: 86,
-        experience: '3+ Years',
-        useCase: 'Enterprise UI modules, database entity relations, migrations, repository patterns',
+        name: 'Express.js & TypeORM',
+        level: 92,
+        experience: '4+ Years',
+        useCase: 'RESTful routing, custom middleware pipelines, entity relations, repository patterns',
         isPrimary: false
       }
     ]
   },
   {
-    id: 'architecture',
+    id: 'architecture_messaging',
     title: 'Architecture & Messaging',
     description: 'Event-driven systems, multi-tenancy, and distributed asynchronous pipelines.',
     iconName: 'Cpu',
@@ -111,32 +121,32 @@ export const skillCategories: SkillCategory[] = [
         isPrimary: true
       },
       {
-        name: 'RabbitMQ & BullMQ',
-        level: 92,
-        experience: '3.5+ Years',
-        useCase: 'Message brokers, delayed task queues, distributed background job workers',
-        isPrimary: true
-      },
-      {
         name: 'Multi-Tenant Systems & RBAC',
-        level: 94,
-        experience: '3.5+ Years',
+        level: 95,
+        experience: '4+ Years',
         useCase: 'Tenant-level data isolation, role-based access control, SSO integration, AES encryption',
         isPrimary: true
       },
       {
+        name: 'RabbitMQ & BullMQ',
+        level: 93,
+        experience: '3.5+ Years',
+        useCase: 'Message brokers, delayed task queues, distributed background job workers, async workflows',
+        isPrimary: true
+      },
+      {
         name: 'REST APIs & SSO',
-        level: 92,
+        level: 93,
         experience: '4+ Years',
-        useCase: 'Contract-first REST endpoints, OAuth/SSO auth layers, OpenAPI/Swagger specs',
+        useCase: 'Contract-first REST endpoints, OAuth/SSO auth layers, rate-limiting, OpenAPI specs',
         isPrimary: false
       }
     ]
   },
   {
-    id: 'databases',
+    id: 'databases_caching',
     title: 'Databases & In-Memory Caching',
-    description: 'Dual-database architectures, relational consistency, and sub-millisecond caching.',
+    description: 'Dual-database architectures, vector search, relational consistency, and sub-millisecond caching.',
     iconName: 'Database',
     skills: [
       {
@@ -147,61 +157,61 @@ export const skillCategories: SkillCategory[] = [
         isPrimary: true
       },
       {
-        name: 'PostgreSQL & MySQL',
-        level: 93,
+        name: 'PostgreSQL & pgvector',
+        level: 94,
         experience: '4+ Years',
-        useCase: 'Relational data modeling, CTE transactions, query execution plans, indexing strategies',
+        useCase: 'HNSW vector indexing, relational data modeling, CTE transactions, query execution tuning',
         isPrimary: true
       },
       {
-        name: 'MongoDB & DynamoDB',
-        level: 88,
-        experience: '3+ Years',
-        useCase: 'Dual-database IoT time-series telemetry storage, document aggregation pipelines',
+        name: 'MySQL & MongoDB',
+        level: 90,
+        experience: '4+ Years',
+        useCase: 'Dual-database IoT time-series telemetry storage, relational configuration, aggregation pipelines',
         isPrimary: false
       },
       {
-        name: 'SQL Query Optimization',
-        level: 92,
+        name: 'Performance Optimization',
+        level: 93,
         experience: '4+ Years',
-        useCase: 'EXPLAIN ANALYZE tuning, connection pooling, write-heavy table optimizations',
+        useCase: 'EXPLAIN ANALYZE tuning, connection pooling, write-heavy indexing strategies, sub-10ms latency',
         isPrimary: true
       }
     ]
   },
   {
-    id: 'languages_devops',
-    title: 'Languages, Cloud & DevOps',
-    description: 'Multi-language engineering, containerized CI/CD, and AI-assisted workflows.',
+    id: 'cloud_devops_ai',
+    title: 'Cloud, DevOps & AI Tools',
+    description: 'Cloud-native infrastructure, CI/CD automation, and modern AI engineering tools.',
     iconName: 'Layout',
     skills: [
       {
-        name: 'TypeScript & JavaScript',
-        level: 96,
-        experience: '4+ Years',
-        useCase: 'Strict typing, shared domain models, modern ESNext features, asynchronous programming',
+        name: 'AWS & Docker',
+        level: 91,
+        experience: '3.5+ Years',
+        useCase: 'Containerized microservices, multi-stage builds, cloud infrastructure, ECS/EC2 deployments',
         isPrimary: true
       },
       {
-        name: 'Python & SQL',
-        level: 88,
-        experience: '3+ Years',
-        useCase: 'Computer vision pipelines (OpenCV/TensorFlow), data processing, complex query scripting',
-        isPrimary: false
-      },
-      {
-        name: 'Docker, Jenkins & CI/CD',
+        name: 'Jenkins, CI/CD & Grafana',
         level: 89,
         experience: '3+ Years',
-        useCase: 'Multi-stage container builds, automated test pipelines, release automation',
+        useCase: 'Automated test pipelines, release automation, system telemetry dashboards, metrics alerts',
         isPrimary: false
       },
       {
-        name: 'Grafana, Claude Code & Cursor IDE',
-        level: 92,
+        name: 'Claude Code & Cursor IDE',
+        level: 95,
         experience: '2+ Years',
-        useCase: 'Telemetry dashboards, metrics monitoring, AI-assisted rapid development',
-        isPrimary: false
+        useCase: 'AI-assisted code generation, symbol search, rapid system prototyping and refactoring',
+        isPrimary: true
+      },
+      {
+        name: 'System Design & Agile/Scrum',
+        level: 94,
+        experience: '4+ Years',
+        useCase: 'Scalable architecture blueprints, sprint planning, unit and integration testing, code reviews',
+        isPrimary: true
       }
     ]
   }
@@ -209,54 +219,89 @@ export const skillCategories: SkillCategory[] = [
 
 export const experienceData: ExperienceItem[] = [
   {
-    id: 'akrivia',
+    id: 'akrivia_sde',
     role: 'Software Development Engineer',
     company: 'Akrivia Automation Pvt. Ltd.',
-    period: 'Mar 2022 – Present',
+    period: 'Jun 2023 – Aug 2026',
     location: 'Visakhapatnam, India',
     type: 'Full-time',
-    summary: 'Driving core architecture and feature development across enterprise multi-tenant industrial automation (Facttwin) and human capital management (Akrivia HCM) SaaS platforms.',
+    summary: 'Architected, developed, and scaled multi-tenant industrial automation SaaS (Facttwin), SmartFactory backend services, and enterprise HR platform modules (Akrivia HCM).',
     achievements: [
-      'Engineered and scaled microservices and event-driven architectures supporting 15+ enterprise clients with zero-compromise tenant data isolation.',
-      'Improved centralized API performance by 33% by building a NestJS API Gateway with Redis caching, RBAC enforcement, rate limiting, and circuit breaking.',
-      'Designed dual-database (MongoDB + SQL Server) IoT telemetry ingestion pipelines using RabbitMQ and Redis to drastically reduce anomaly detection latency.',
-      'Reduced client onboarding time by 20% through automated tenant provisioning workflows with AES-encrypted communication and multi-tenant configuration management.'
+      'Developed and scaled Machine Health Monitoring supporting 15+ enterprise clients with tenant-level data isolation using NestJS microservices and RabbitMQ event-driven architecture.',
+      'Contributed to the SmartFactory project, developing robust backend services and REST APIs using Python and FastAPI.',
+      'Improved centralized API performance by 33% by building a NestJS API Gateway with Redis caching, RBAC enforcement, rate limiting, and circuit-breaking mechanisms.',
+      'Reduced client onboarding time by 20% by implementing automated tenant provisioning workflows using RabbitMQ messaging, AES-encrypted communication, and multi-tenant configuration management.',
+      'Designed scalable IoT telemetry processing pipelines using RabbitMQ and Redis, reducing anomaly detection latency while improving data reliability through a dual-database (PostgreSQL + MongoDB) architecture for relational and time-series workloads.',
+      'Developed scalable HR platform modules using NestJS, Angular, MySQL, and Redis, optimizing database queries and API workflows to improve response times by 12%.',
+      'Implemented configurable performance appraisal workflows, including 9-Box evaluation, reducing HR review cycle completion time by 25%.'
     ],
     technologies: [
-      'NestJS', 
-      'Node.js', 
-      'Redis', 
-      'RabbitMQ', 
-      'PostgreSQL', 
-      'MySQL', 
-      'MongoDB', 
-      'SQL Server', 
-      'React', 
-      'Angular', 
-      'Docker', 
-      'TypeScript'
+      'NestJS',
+      'Python',
+      'FastAPI',
+      'Node.js',
+      'Redis',
+      'RabbitMQ',
+      'PostgreSQL',
+      'MongoDB',
+      'MySQL',
+      'Angular',
+      'Docker',
+      'TypeScript',
+      'AES Encryption'
     ],
     subProducts: [
       {
-        name: 'Facttwin (Industrial Automation SaaS)',
-        period: 'Feb 2024 – Present',
-        description: 'Multi-tenant industrial automation platform supporting 15+ enterprise clients with tenant-level data isolation using NestJS microservices and RabbitMQ-based event-driven architecture.',
+        name: 'Facttwin & SmartFactory (Industrial Automation SaaS)',
+        period: 'Feb 2024 – Aug 2026',
+        description: 'Multi-tenant industrial automation platform supporting 15+ enterprise clients with tenant-level data isolation using NestJS microservices, RabbitMQ, and Python/FastAPI backend services.',
         points: [
-          'Developed and scaled Machine Health Monitoring supporting 15+ enterprise clients with tenant-level data isolation.',
+          'Developed and scaled Machine Health Monitoring, a multi-tenant industrial automation SaaS platform supporting 15+ enterprise clients with tenant-level data isolation using NestJS microservices and RabbitMQ-based event-driven architecture and contributed to the SmartFactory project, developing backend services and APIs using Python and FastAPI.',
           'Improved API performance by 33% by building a centralized NestJS API Gateway with Redis caching, RBAC enforcement, rate limiting, and circuit-breaking mechanisms.',
           'Reduced client onboarding time by 20% by implementing automated tenant provisioning workflows using RabbitMQ messaging, AES-encrypted communication, and multi-tenant configuration management.',
-          'Designed scalable IoT telemetry processing pipelines using RabbitMQ and Redis, reducing anomaly detection latency while improving data reliability through a dual-database (MongoDB + SQL Server) architecture for time-series and relational workloads.'
+          'Designed scalable IoT telemetry processing pipelines using RabbitMQ and Redis, reducing anomaly detection latency while improving data reliability through a dual-database (PostgreSQL + MongoDB) architecture for relational and time-series workloads.'
         ]
       },
       {
         name: 'Akrivia HCM (Enterprise HR Platform)',
-        period: 'Mar 2022 – Jan 2024',
-        description: 'Scalable enterprise HR platform modules with high database optimization and responsive workflows.',
+        period: 'Jun 2023 – Jan 2024',
+        description: 'Enterprise HR platform modules focused on database query optimization and configurable review cycles.',
         points: [
           'Developed scalable HR platform modules using NestJS, Angular, MySQL, and Redis, optimizing database queries and API workflows to improve response times by 12%.',
-          'Modernized legacy backend and frontend services by migrating to a NestJS + Angular architecture, improving application performance by 15% and reducing maintenance complexity.',
-          'Implemented configurable performance appraisal workflows, including 9-Box evaluation, reducing HR review cycle completion time by 25%.',
-          'Built reusable backend services and API integrations to support HR workflows, improving module scalability and enabling faster feature delivery across the platform.'
+          'Implemented configurable performance appraisal workflows, including 9-Box evaluation, reducing HR review cycle completion time by 25%.'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'akrivia_intern',
+    role: 'Software Development Engineer Intern',
+    company: 'Akrivia Automation Pvt. Ltd.',
+    period: 'Mar 2022 – May 2023',
+    location: 'Visakhapatnam, India',
+    type: 'Full-time',
+    summary: 'Modernized legacy HR services, migrated architectural components to NestJS + Angular, and stabilized production deployments.',
+    achievements: [
+      'Modernized legacy backend and frontend services by migrating to a NestJS + Angular architecture, improving application performance by 15% and reducing maintenance.',
+      'Identified and resolved 30+ production issues in Angular and Hapi.js services during early deployment phases, reducing production incidents and improving overall system reliability.'
+    ],
+    technologies: [
+      'NestJS',
+      'Angular',
+      'Hapi.js',
+      'Node.js',
+      'MySQL',
+      'TypeScript',
+      'JavaScript'
+    ],
+    subProducts: [
+      {
+        name: 'Akrivia HCM Legacy Modernization',
+        period: 'Mar 2022 – May 2023',
+        description: 'Architectural refactoring from legacy Hapi.js services to modular NestJS microservices and Angular frontends.',
+        points: [
+          'Modernized legacy backend and frontend services by migrating to a NestJS + Angular architecture, improving application performance by 15% and reducing maintenance.',
+          'Identified and resolved 30+ production issues in Angular and Hapi.js services during early deployment phases, reducing production incidents and improving overall system reliability.'
         ]
       }
     ]
@@ -265,10 +310,40 @@ export const experienceData: ExperienceItem[] = [
 
 export const projectsData: Project[] = [
   {
+    id: 'cortex',
+    title: 'Cortex: RAG & Tool-Calling Agent Backend',
+    tagline: 'Multi-repository code and documentation intelligence engine with real-time streaming and pgvector HNSW indexing.',
+    description: 'Built RAG and tool-calling agent backend to query multi-repository codebases and documentation with real-time streaming. Optimized retrieval accuracy using recursive syntax-aware chunking, pgvector HNSW indexing, and cross-encoder re-ranking to minimize hallucinations. Implemented a custom agentic execution loop for code-symbol searches and integrated a dual-mode fallback supporting local quantized models alongside cloud APIs.',
+    longDescription: 'Engineered an agentic retrieval-augmented generation (RAG) platform specialized for deep codebase semantic search, symbol navigation, and documentation queries. Employs recursive syntax-aware AST chunking tailored for programming languages to preserve scope boundaries. Sub-millisecond vector retrieval is accelerated via pgvector HNSW indexing in PostgreSQL, followed by a second-stage cross-encoder re-ranking model to suppress hallucinations. Features a custom agentic execution loop capable of iterative tool calling and code-symbol searches, backed by an intelligent dual-mode fallback supporting local quantized models alongside cloud APIs.',
+    category: 'AI & Agentic Systems',
+    techStack: ['Python', 'FastAPI', 'pgvector', 'PostgreSQL', 'OpenAI API', 'Local LLMs', 'Docker', 'Cross-Encoders'],
+    metrics: [
+      { label: 'Vector Indexing', value: 'pgvector HNSW' },
+      { label: 'Re-Ranking', value: 'Cross-Encoder' },
+      { label: 'Streaming', value: 'Token SSE Real-Time' },
+      { label: 'Fallback Mode', value: 'Cloud & Local Dual' }
+    ],
+    architectureHighlights: [
+      'Recursive syntax-aware chunking preserving class, function, and import boundaries',
+      'pgvector HNSW indexing for rapid sub-millisecond cosine vector similarity lookup',
+      'Two-stage retrieval pipeline with cross-encoder re-ranking to minimize hallucinations',
+      'Custom agentic execution loop for code-symbol searches with dual-mode cloud/local model fallback'
+    ],
+    features: [
+      'Real-time token streaming over Server-Sent Events (SSE)',
+      'Multi-repository semantic search across codebases and API documentation',
+      'Autonomous agentic tool-calling loop for code-symbol definitions and references',
+      'Dual-mode execution: seamlessly switches between local quantized models and cloud APIs'
+    ],
+    githubUrl: 'https://github.com/anirudhpilla',
+    featured: true,
+    systemDiagramSnippet: 'Client Query ➔ FastAPI Agent Loop ➔ Syntax Chunker ➔ pgvector (HNSW) ➔ Cross-Encoder Re-ranker ➔ Cloud / Local LLM Stream'
+  },
+  {
     id: 'boltticket',
     title: 'Boltticket: High-Concurrency Distributed Ticket Booking Platform',
     tagline: 'High-concurrency ticket reservation engine sustaining 955 RPS (57K+ requests/min) with 0% error rate.',
-    description: 'Engineered a high-concurrency distributed ticket booking platform sustaining 955 RPS with no error rate, achieving 3.05 ms median and 7.21 ms P95 latency through Redis Lua-based distributed locking and BullMQ-powered asynchronous workflows.',
+    description: 'Engineered a high-concurrency distributed ticket booking platform sustaining 955 RPS (57K+ requests/min) with no error rate, achieving 3.05 ms median and 7.21 ms P95 latency through Redis Lua-based distributed locking and BullMQ-powered asynchronous workflows.',
     longDescription: 'Engineered to handle massive concurrent traffic spikes without double-booking or race conditions. Implemented single-roundtrip Redis Lua scripts for atomic ticket inventory holds and distributed mutex locks, backed by BullMQ asynchronous queue workers for payment validation and PostgreSQL transaction consistency. Verified with rigorous k6 stress test benchmarks.',
     category: 'Distributed Systems',
     techStack: ['Node.js', 'TypeScript', 'Redis', 'BullMQ', 'PostgreSQL', 'k6', 'Docker', 'Lua Scripting'],
@@ -346,26 +421,27 @@ export const projectsData: Project[] = [
       'Dynamic visual filter triggers and interactive particle effects'
     ],
     githubUrl: 'https://github.com/anirudhpilla',
-    featured: true,
+    featured: false,
     systemDiagramSnippet: 'Camera Stream ➔ MediaPipe Mesh ➔ TensorFlow CNN Classifier (82%) ➔ OpenCV Filter Overlay'
   },
   {
     id: 'facttwin-iot-pipeline',
     title: 'Facttwin IoT Telemetry & Anomaly Processing Pipeline',
     tagline: 'Industrial IoT processing pipeline with RabbitMQ, Redis, and dual-database architecture.',
-    description: 'Industrial automation streaming pipeline processing thousands of machine telemetry events per second across 15+ enterprise clients with dual MongoDB + SQL Server storage.',
-    longDescription: 'Part of Facttwin Machine Health Monitoring at Akrivia Automation. Designed to ingest high-frequency sensor readings, route through RabbitMQ exchange queues, perform sub-millisecond anomaly detection using Redis thresholds, and persist high-volume time-series data to MongoDB while maintaining relational configuration metadata in SQL Server.',
+    description: 'Industrial automation streaming pipeline processing thousands of machine telemetry events per second across 15+ enterprise clients with dual PostgreSQL + MongoDB storage.',
+    longDescription: 'Part of Facttwin Machine Health Monitoring and SmartFactory at Akrivia Automation. Designed to ingest high-frequency sensor readings, route through RabbitMQ exchange queues, perform sub-millisecond anomaly detection using Redis thresholds, and persist high-volume time-series data to MongoDB while maintaining relational configuration metadata in PostgreSQL.',
     category: 'Backend & Microservices',
-    techStack: ['NestJS', 'RabbitMQ', 'Redis', 'MongoDB', 'SQL Server', 'TypeScript', 'Docker'],
+    techStack: ['NestJS', 'Python', 'FastAPI', 'RabbitMQ', 'Redis', 'PostgreSQL', 'MongoDB', 'Docker'],
     metrics: [
       { label: 'Enterprise Tenants', value: '15+ Clients' },
       { label: 'API Speedup', value: '+33%' },
-      { label: 'Data Architecture', value: 'Dual-DB' }
+      { label: 'Data Architecture', value: 'PostgreSQL + Mongo' }
     ],
     architectureHighlights: [
       'Centralized NestJS API Gateway with Redis caching and RBAC enforcement',
       'RabbitMQ event-driven messaging for asynchronous tenant provisioning and telemetry ingestion',
-      'Dual-database design: MongoDB for time-series IoT data + SQL Server for relational metadata'
+      'Dual-database design: MongoDB for time-series IoT data + PostgreSQL for relational metadata',
+      'SmartFactory Python and FastAPI backend microservices'
     ],
     features: [
       'Tenant-level data isolation and AES-encrypted inter-service communication',
@@ -375,11 +451,21 @@ export const projectsData: Project[] = [
     ],
     githubUrl: 'https://github.com/anirudhpilla',
     featured: false,
-    systemDiagramSnippet: 'IoT Sensors ➔ NestJS Gateway ➔ RabbitMQ ➔ Redis Thresholds ➔ Dual DB (Mongo + SQL)'
+    systemDiagramSnippet: 'IoT Sensors ➔ NestJS Gateway ➔ RabbitMQ ➔ Redis Thresholds ➔ Dual DB (Postgres + Mongo)'
   }
 ];
 
 export const sampleSimulationEndpoints = [
+  {
+    id: 'cortex_rag',
+    name: 'POST /api/v1/cortex/rag/query',
+    description: 'Cortex: pgvector HNSW indexing & cross-encoder re-ranking',
+    dbQueryTime: 24,
+    redisCacheTime: 2,
+    serviceProcessingTime: 6,
+    cacheHitRatio: '98.5%',
+    queryDescription: '-- Cortex: pgvector HNSW Approximate Nearest Neighbor Search\nSELECT doc_id, chunk_content, 1 - (embedding <=> $1) AS cosine_similarity\nFROM code_embeddings\nORDER BY embedding <=> $1\nLIMIT 20;\n-- 2nd stage: Cross-encoder re-ranking top candidates for hallucination suppression'
+  },
   {
     id: 'boltticket_reserve',
     name: 'POST /api/v1/tickets/reserve-hold',
@@ -388,23 +474,23 @@ export const sampleSimulationEndpoints = [
     redisCacheTime: 3,
     serviceProcessingTime: 4,
     cacheHitRatio: '99.2%',
-    queryDescription: '-- Redis Lua Atomic Ticket Hold Script\nlocal key = "ticket:lock:" .. KEYS[1]\nlocal available = redis.call("GET", key)\nif tonumber(available) > 0 then\n  redis.call("DECR", key)\n  return redis.call("SET", "user:hold:" .. ARGV[1], KEYS[1], "EX", 600)\nelse\n  return 0\nend'
+    queryDescription: '-- Redis Lua Atomic Ticket Hold Script (Sustained 955 RPS)\nlocal key = "ticket:lock:" .. KEYS[1]\nlocal available = redis.call("GET", key)\nif tonumber(available) > 0 then\n  redis.call("DECR", key)\n  return redis.call("SET", "user:hold:" .. ARGV[1], KEYS[1], "EX", 600)\nelse\n  return 0\nend'
   },
   {
     id: 'facttwin_telemetry',
     name: 'POST /api/v1/facttwin/iot/telemetry',
     description: 'Facttwin: RabbitMQ message event & Redis anomaly thresholding',
-    dbQueryTime: 62,
+    dbQueryTime: 55,
     redisCacheTime: 2,
     serviceProcessingTime: 5,
     cacheHitRatio: '96.5%',
-    queryDescription: 'INSERT INTO machine_telemetry (tenant_id, machine_id, vibration, temperature, recorded_at)\nVALUES (\'tenant-15\', \'sensor-unit-4a\', 0.042, 78.4, NOW())\n-- MongoDB time-series batch write with RabbitMQ ACK'
+    queryDescription: '-- Ingest IoT machine sensor reading to Dual-DB\nINSERT INTO machine_telemetry (tenant_id, machine_id, vibration, temperature, recorded_at)\nVALUES (\'tenant-15\', \'sensor-unit-4a\', 0.042, 78.4, NOW())\n-- PostgreSQL relational metadata + MongoDB time-series batch write with RabbitMQ ACK'
   },
   {
     id: 'hcm_appraisal',
     name: 'GET /api/v1/hcm/appraisals/9-box-matrix',
     description: 'Akrivia HCM: Optimized 9-Box performance matrix evaluation',
-    dbQueryTime: 52,
+    dbQueryTime: 42,
     redisCacheTime: 2,
     serviceProcessingTime: 3,
     cacheHitRatio: '94.0%',

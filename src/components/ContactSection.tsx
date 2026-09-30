@@ -206,7 +206,7 @@ export default function ContactSection() {
                   <ExternalLink className="w-3 h-3 text-neutral-500 group-hover:text-emerald-400" />
                 </div>
                 <h4 className="text-xs font-bold text-white group-hover:text-emerald-300">HackerRank</h4>
-                <p className="text-[10px] text-neutral-400 font-mono truncate">@anirudhxdev</p>
+                <p className="text-[10px] text-neutral-400 font-mono truncate">@{personalInfo.hackerrankUrl?.split('/').pop() || '19981A05C4'}</p>
               </a>
 
             </div>
@@ -224,9 +224,7 @@ export default function ContactSection() {
             </div>
 
             {/* Direct Resume Download Link */}
-            <a
-              href="/resume.pdf"
-              download="Anirudh_Pilla_Resume.pdf"
+            <button
               onClick={handleDownloadResume}
               id="contact-download-resume-btn"
               className="w-full flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 hover:border-cyan-400 text-xs text-neutral-200 transition-all hover:bg-neutral-900 group cursor-pointer text-left"
@@ -241,7 +239,7 @@ export default function ContactSection() {
                 </div>
               </div>
               <Download className="w-4 h-4 text-cyan-400 group-hover:translate-y-0.5 transition-transform" />
-            </a>
+            </button>
 
           </div>
 
