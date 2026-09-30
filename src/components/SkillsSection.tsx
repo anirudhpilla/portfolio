@@ -141,39 +141,26 @@ export default function SkillsSection() {
                 </div>
 
                 {/* Skills list inside category */}
-                <div className="space-y-4">
+                <div className="space-y-3.5">
                   {category.skills.map((skill) => (
                     <div 
                       key={skill.name}
                       className="p-3.5 rounded-xl bg-neutral-950/60 border border-neutral-800/60 hover:border-neutral-700 transition-colors"
                     >
-                      <div className="flex items-center justify-between mb-1.5">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
-                          <span className="text-sm font-semibold text-neutral-200">
-                            {skill.name}
-                          </span>
-                          {skill.isPrimary && (
-                            <span className="text-[10px] font-mono text-cyan-400">
-                              (Core)
-                            </span>
-                          )}
-                        </div>
-                        <span className="text-xs font-mono text-neutral-400">
-                          {skill.experience}
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
+                        <span className="text-sm font-semibold text-neutral-200">
+                          {skill.name}
                         </span>
-                      </div>
-
-                      {/* Progress bar */}
-                      <div className="w-full bg-neutral-800 h-1.5 rounded-full overflow-hidden mb-2">
-                        <div 
-                          className="bg-gradient-to-r from-cyan-400 to-blue-500 h-full rounded-full transition-all duration-500" 
-                          style={{ width: `${skill.level}%` }}
-                        />
+                        {skill.isPrimary && (
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-medium">
+                            Core
+                          </span>
+                        )}
                       </div>
 
                       {/* Real-world use case / description */}
-                      <p className="text-xs text-neutral-400 leading-snug">
+                      <p className="text-xs text-neutral-400 leading-relaxed">
                         <span className="text-neutral-500 font-mono text-[11px]">Usage: </span>
                         {skill.useCase}
                       </p>

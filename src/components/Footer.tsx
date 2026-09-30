@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import { personalInfo } from '../data/portfolioData';
 import { downloadResumeFile } from '../utils/downloadResume';
-import { Terminal, Github, Linkedin, Mail, ArrowUp, Phone, Award, MapPin, Download } from 'lucide-react';
+import { Terminal, Github, Linkedin, Mail, ArrowUp, Phone, Award, Download } from 'lucide-react';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -40,7 +40,7 @@ export default function Footer() {
               onClick={handleDownloadResume}
               id="footer-resume-download-btn"
               className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-cyan-400 border border-neutral-800 transition-colors cursor-pointer"
-              title="Download Resume (PDF)"
+              title="Download Resume"
             >
               <Download className="w-3.5 h-3.5 text-cyan-400" />
               <span>Resume PDF</span>

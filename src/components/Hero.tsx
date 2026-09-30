@@ -146,21 +146,21 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
               </button>
 
               <button
-                onClick={handleDownloadResume}
-                id="hero-download-resume-pdf-btn"
-                className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-neutral-100 bg-neutral-900 hover:bg-neutral-800 border border-cyan-500/30 hover:border-cyan-400/60 shadow-lg shadow-cyan-500/10 transition-all cursor-pointer"
-              >
-                <Download className="w-4 h-4 text-cyan-400" />
-                <span>Download Resume (PDF)</span>
-              </button>
-
-              <button
                 onClick={onOpenResume}
                 id="hero-resume-btn"
                 className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-neutral-300 hover:text-white bg-neutral-900/60 hover:bg-neutral-800 border border-neutral-800 transition-all cursor-pointer"
               >
                 <FileText className="w-4 h-4 text-neutral-400" />
                 <span>Preview Resume</span>
+              </button>
+
+              <button
+                onClick={handleDownloadResume}
+                id="hero-download-resume-pdf-btn"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-neutral-100 bg-neutral-900 hover:bg-neutral-800 border border-cyan-500/30 hover:border-cyan-400/60 shadow-lg shadow-cyan-500/10 transition-all cursor-pointer"
+              >
+                <Download className="w-4 h-4 text-cyan-400" />
+                <span>Download Resume</span>
               </button>
             </div>
 
@@ -266,48 +266,60 @@ export default function Hero({ onOpenContact, onOpenResume }: HeroProps) {
               className="relative rounded-2xl bg-neutral-900/90 border border-neutral-800 shadow-2xl shadow-black/80 overflow-hidden backdrop-blur-xl"
             >
               {/* Window Header */}
-              <div className="flex items-center justify-between px-4 py-3 bg-neutral-950 border-b border-neutral-800 text-xs">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                  <span className="ml-2 font-mono text-neutral-400 text-[11px]">sde.anirudh.ts</span>
+              <div className="flex items-center justify-between px-3.5 py-2.5 bg-neutral-950 border-b border-neutral-800 text-xs">
+                <div className="flex items-center gap-1.5 shrink-0 pr-3 border-r border-neutral-800/80 mr-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                 </div>
 
                 {/* Tab switchers */}
-                <div className="flex items-center gap-1 bg-neutral-900 p-0.5 rounded-md">
+                <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-0.5 min-w-0 flex-1">
                   <button
                     onClick={() => setActiveTab('cortex')}
-                    className={`px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
-                      activeTab === 'cortex' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
+                    className={`px-2.5 py-1 rounded-md text-[11px] font-mono transition-all whitespace-nowrap cursor-pointer shrink-0 ${
+                      activeTab === 'cortex' 
+                        ? 'bg-neutral-800 text-cyan-300 font-semibold border border-neutral-700/80 shadow-sm' 
+                        : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900/60'
                     }`}
                   >
                     cortex.py
                   </button>
                   <button
                     onClick={() => setActiveTab('boltticket')}
-                    className={`px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
-                      activeTab === 'boltticket' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
+                    className={`px-2.5 py-1 rounded-md text-[11px] font-mono transition-all whitespace-nowrap cursor-pointer shrink-0 ${
+                      activeTab === 'boltticket' 
+                        ? 'bg-neutral-800 text-cyan-300 font-semibold border border-neutral-700/80 shadow-sm' 
+                        : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900/60'
                     }`}
                   >
                     boltticket.lua
                   </button>
                   <button
                     onClick={() => setActiveTab('facttwin')}
-                    className={`px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
-                      activeTab === 'facttwin' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
+                    className={`px-2.5 py-1 rounded-md text-[11px] font-mono transition-all whitespace-nowrap cursor-pointer shrink-0 ${
+                      activeTab === 'facttwin' 
+                        ? 'bg-neutral-800 text-cyan-300 font-semibold border border-neutral-700/80 shadow-sm' 
+                        : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900/60'
                     }`}
                   >
                     facttwin.sh
                   </button>
                   <button
                     onClick={() => setActiveTab('resume')}
-                    className={`px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
-                      activeTab === 'resume' ? 'bg-cyan-500/20 text-cyan-300 font-semibold' : 'text-neutral-400 hover:text-neutral-200'
+                    className={`px-2.5 py-1 rounded-md text-[11px] font-mono transition-all whitespace-nowrap cursor-pointer shrink-0 ${
+                      activeTab === 'resume' 
+                        ? 'bg-neutral-800 text-cyan-300 font-semibold border border-neutral-700/80 shadow-sm' 
+                        : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900/60'
                     }`}
                   >
-                    profile.json
+                    profile.ts
                   </button>
+                </div>
+
+                <div className="hidden sm:flex items-center gap-1.5 text-[10px] font-mono text-neutral-400 shrink-0 pl-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>UTF-8</span>
                 </div>
               </div>
 

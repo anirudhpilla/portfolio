@@ -8,9 +8,7 @@ import {
   Github, 
   Linkedin, 
   Send, 
-  Sparkles, 
   MapPin, 
-  Clock, 
   CheckCircle2,
   ExternalLink,
   Phone,
@@ -75,7 +73,7 @@ export default function ContactSection() {
             Let's Build Something Scalable
           </h2>
           <p className="text-neutral-400 text-base mt-2">
-            Looking for a Software Development Engineer with deep expertise in NestJS/Node.js microservices, distributed systems, Redis caching, and SQL? Let's connect.
+            Looking for a Software Developer with expertise in Node/FastAPI microservices, distributed systems, Redis caching, and SQL? Let's connect.
           </p>
         </div>
 
@@ -234,8 +232,8 @@ export default function ContactSection() {
                   <FileText className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="font-bold text-white group-hover:text-cyan-300">Download Official Resume</div>
-                  <div className="text-[10px] text-neutral-400">PDF • Microservices & Distributed Systems</div>
+                  <div className="font-bold text-white group-hover:text-cyan-300">Download Resume</div>
+                  <div className="text-[10px] text-neutral-400">Anirudh_Pilla_Resume.pdf</div>
                 </div>
               </div>
               <Download className="w-4 h-4 text-cyan-400 group-hover:translate-y-0.5 transition-transform" />
@@ -317,7 +315,7 @@ export default function ContactSection() {
                     rows={4}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Hi Anirudh, we were impressed by your work at Akrivia Automation on Facttwin and Boltticket, and would love to discuss an opportunity..."
+                    placeholder="Hi Anirudh, we would love to discuss an opportunity..."
                     id="contact-form-message"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-cyan-400 transition-colors font-sans resize-y"
                   />
