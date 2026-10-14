@@ -31,15 +31,6 @@ A modern, high-performance portfolio website built with React, TypeScript, Vite,
 
 ---
 
-### 📄 Resume File
-
-Your PDF resume is located at `/public/resume.pdf`. It is linked directly across the website:
-- **Hero Section**: "Download Resume (PDF)" button
-- **Resume Modal**: "Download PDF" toolbar button
-- **Contact Section & Footer**: Direct download links
-
----
-
 ### Option 2: Deploy Using Vercel CLI
 
 1. Install the Vercel CLI globally:
